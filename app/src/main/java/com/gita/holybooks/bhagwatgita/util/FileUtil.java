@@ -33,7 +33,7 @@ public class FileUtil {
         return text.toString();
     }
 
-    public static void loadShlokaInMemory(Context ctx, int resId){
+    public static void loadShlokaInMemory(Context ctx, int resId) {
 
         InputStream inputStream = ctx.getResources().openRawResource(resId);
         InputStreamReader inputReader = new InputStreamReader(inputStream);
@@ -41,17 +41,21 @@ public class FileUtil {
         String line;
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                if(line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty()) continue;
                 StringBuilder text = new StringBuilder();
                 String shlokaId = null;
-                if(line.contains(",")) shlokaId = line.substring(0, line.indexOf(","));
-                text.append(line.substring(line.indexOf(",")+1).replace('\\', '\n'));
-                text.append(bufferedReader.readLine().replace('\\', '\n'));
-                Log.d("FileUtil", "loadShlokaInMemory: shlokaId="+shlokaId+" text="+text);
+                if (line.contains(",")) shlokaId = line.substring(0, line.indexOf(","));
+                text.append(line.substring(line.indexOf(",") + 1).replace('\\', '\n'));
+
+                do {
+                    line = bufferedReader.readLine();
+                    text.append(line.replace('\\', '\n'));
+                } while (!line.contains(".."));
+                Log.d("FileUtil", "loadShlokaInMemory: shlokaId=" + shlokaId + " text=" + text);
                 DataUtil.shlokaTextMap.put(shlokaId, text.toString());
             }
         } catch (IOException e) {
-            Log.e("FileUtil", "loadShlokaInMemory: Unable to read from resource file="+resId, e);
+            Log.e("FileUtil", "loadShlokaInMemory: Unable to read from resource file=" + resId, e);
         }
 
     }
