@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/ic_drawer" />
+
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/chapters"
+            android:id="@+id/nav_chapters"
             android:icon="@drawable/ic_description_black_24dp"
-            android:title="@string/chapters" />
+            android:title="@string/nav_chapters" />
 
         <item
-            android:id="@+id/settings"
+            android:id="@+id/nav_shloka_of_the_day"
             android:icon="@drawable/ic_description_black_24dp"
-            android:title="@string/settings" />
+            android:title="@string/nav_shloka_of_the_day" />
 
         <item
-            android:id="@+id/feedback"
+            android:id="@+id/nav_bookmark"
             android:icon="@drawable/ic_description_black_24dp"
-            android:title="@string/feedback" />
+            android:title="@string/nav_bookmark" />
     </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_about_us"
+                android:title="@string/nav_about_us" />
+            <item
+                android:id="@+id/nav_settings"
+                android:title="@string/nav_settings" />
+            <item
+                android:id="@+id/nav_help"
+                android:title="@string/nav_help" />
+            <item
+                android:id="@+id/nav_privacy_policy"
+                android:title="@string/privacy_policy" />
+        </menu>
+    </item>
 
 
 </menu>

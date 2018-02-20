@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private void configureNavigationDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.navigation);
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity  {
                 Fragment f = null;
                 int itemId = menuItem.getItemId();
 
-                if (itemId == R.id.chapters) {
+                if (itemId == R.id.nav_chapters) {
                     f = new RefreshFragment();
                 }/* else if (itemId == R.id.feedback) {
                     f = new StopFragment();
