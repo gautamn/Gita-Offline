@@ -1,8 +1,5 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
-
-import android.app.Activity;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -10,20 +7,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-
 
 import com.gita.holybooks.bhagwatgita.R;
 
 public class MainActivity extends AppCompatActivity  {
 
-    //private RelativeLayout layout;
     private DrawerLayout drawerLayout;
 
     @Override
@@ -46,7 +37,7 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_description_black_24dp);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_list_black_24dp);
         actionbar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -97,12 +88,12 @@ public class MainActivity extends AppCompatActivity  {
 
     public static class RefreshFragment extends Fragment {
 
-        @Nullable
+       /* @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.fragment_planet, container, false);
+            View v = inflater.inflate(R.layout.fragment_planet_12, container, false);
             return v;
-        }
+        }*/
     }
 
 }
