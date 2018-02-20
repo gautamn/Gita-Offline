@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/chapters"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:title="@string/chapters" />
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:title="@string/settings" />
+
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:title="@string/feedback" />
+    </group>
+
+
+</menu>
