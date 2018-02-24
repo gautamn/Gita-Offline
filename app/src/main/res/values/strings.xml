@@ -20,7 +20,9 @@
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Home</item>
-
+        <item>Chapters</item>
+        <item>Shloka of the Day</item>
+        <item>BookMark</item>
     </string-array>
 
     <string name="activity_title_about_us">About Us</string>

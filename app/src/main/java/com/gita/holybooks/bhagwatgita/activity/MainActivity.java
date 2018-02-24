@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.fragment.ChapterFragment;
 import com.gita.holybooks.bhagwatgita.fragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
+    private static final String TAG_CHAPTER = "chapters";
+    private static final String TAG_SHLOKA_OF_THE_DAY = "shloka_of_the_day";
+
     public static String CURRENT_TAG = TAG_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -78,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void configureToolbar() {
+   /* private void configureToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeAsUpIndicator(R.drawable.ic_list_black_24dp);
         actionbar.setDisplayHomeAsUpEnabled(true);
-    }
+    }*/
 
     private void configureNavigationDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -102,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
+                        break;
+                    case R.id.nav_chapters:
+                        navItemIndex = 1;
+                        CURRENT_TAG = TAG_CHAPTER;
+                        break;
+                    case R.id.nav_shloka_of_the_day:
+                        navItemIndex = 2;
+                        CURRENT_TAG = TAG_SHLOKA_OF_THE_DAY;
                         break;
                     case R.id.nav_about_us:
                         // launch new intent instead of loading fragment
@@ -194,11 +207,17 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private Fragment getHomeFragment() {
+
+        Log.d("Fragment","navItemIndex=="+navItemIndex);
         switch (navItemIndex) {
+
             case 0:
                 // home
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
+            case 1:
+                ChapterFragment chapterFragment = new ChapterFragment();
+                return chapterFragment;
 
             default:
                 return new HomeFragment();
