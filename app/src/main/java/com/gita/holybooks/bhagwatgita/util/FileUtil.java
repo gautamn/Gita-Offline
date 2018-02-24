@@ -59,4 +59,26 @@ public class FileUtil {
         }
 
     }
+
+    public static void loadChaptersInMemory(Context ctx, int resId) {
+
+        InputStream inputStream = ctx.getResources().openRawResource(resId);
+        InputStreamReader inputReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputReader);
+        String line;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                StringBuilder text = new StringBuilder();
+                String chapterId = null;
+                if (line.contains(",")) chapterId = line.substring(0, line.indexOf(","));
+                text.append(line.substring(line.indexOf(",") + 1));
+                Log.d("FileUtil", "loadChaptersInMemory: chapterId=" + chapterId + " text=" + text);
+                DataUtil.chapterTextMap.put(chapterId, text.toString());
+            }
+        } catch (IOException e) {
+            Log.e("FileUtil", "loadChaptersInMemory: Unable to read from resource file=" + resId, e);
+        }
+
+    }
 }

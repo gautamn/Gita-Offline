@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.fragment.ChapterFragment;
 import com.gita.holybooks.bhagwatgita.fragment.HomeFragment;
+import com.gita.holybooks.bhagwatgita.util.FileUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+        FileUtil.loadChaptersInMemory(getApplicationContext(), R.raw.chapters);
 
     }
 

@@ -1,6 +1,7 @@
 package com.gita.holybooks.bhagwatgita.util;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -17,5 +18,6 @@ public class DataUtil {
         shlokaTextMap = shlokaTextMap;
     }
 
-    public static Map<String, String> shlokaTextMap = new HashMap<>();
+    public static Map<String, String> shlokaTextMap = new LinkedHashMap<>();
+    public static Map<String, String> chapterTextMap = new LinkedHashMap<>();
 }
