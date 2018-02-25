@@ -144,7 +144,8 @@ public class ChapterFragment extends Fragment {
                     Toast.makeText(getActivity(), " clicked!", Toast.LENGTH_SHORT)
                             .show();
 
-                    String chapter = mChapter.getChapterNumber();
+                    String shlokaId = mChapter.getChapterNumber()+"_1";
+                    DataUtil.shlokaId = shlokaId;
                     Intent intent = new Intent(getActivity().getApplication(), HomePageActivity.class);
                     startActivity(intent);
                 }

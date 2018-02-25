@@ -7,15 +7,24 @@
     tools:context="com.gita.holybooks.bhagwatgita.activity.HomePageActivity">
 
     <TextView
-        android:id="@+id/editText"
+        android:id="@+id/shlokaNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/editText"
+        android:text="@+id/shlokaNumberText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/shlokaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+id/shlokaContent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/next_button_id"
@@ -23,10 +32,10 @@
         android:layout_width="wrap_content"
         android:text="next" />
 
-   <!-- <Button
+    <Button
         android:id="@+id/prev_button_id"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="prev" />-->
+        android:text="prev" />
 
 </android.support.constraint.ConstraintLayout>

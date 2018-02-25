@@ -73,7 +73,7 @@ public class FileUtil {
                 if (line.trim().isEmpty()) continue;
                 String str = null;
                 String chapterNumber = null;
-                if (line.contains(",")) chapterNumber = "Chapter " + line.substring(0, line.indexOf(","));
+                if (line.contains(",")) chapterNumber = line.substring(0, line.indexOf(","));
                 str = line.substring(line.indexOf(",") + 1);
                 String[] arr = str.split("-");
                 String title = arr[0];

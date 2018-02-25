@@ -16,17 +16,11 @@ import java.util.Map;
 
 public class DataUtil {
 
-    public static Map<String, String> getShlokaTextMap() {
-        return shlokaTextMap;
-    }
-
-    public static void setShlokaTextMap(Map<String, String> shlokaTextMap) {
-        shlokaTextMap = shlokaTextMap;
-    }
-
     public static Map<String, String> shlokaTextMap = new LinkedHashMap<>();
-    public static Map<String, String> chapterTextMap = new LinkedHashMap<>();
 
     /*Information of Gita Chapters*/
     public static List<Chapter> chapters = new ArrayList<>(18);
+
+    /*Current Shloka Id*/
+    public static String shlokaId;
 }

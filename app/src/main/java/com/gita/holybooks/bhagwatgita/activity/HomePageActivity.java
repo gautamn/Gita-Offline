@@ -24,15 +24,24 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
+        if(DataUtil.shlokaTextMap.isEmpty())
+            FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
 
-        String firstShloka = DataUtil.getShlokaTextMap().get("1_1");
-        Log.d("HomePageActivity", "first shloka="+firstShloka);
+        String currentShlokaId = DataUtil.shlokaId;
+        Log.d("HomePageActivity", "currentShlokaId="+currentShlokaId);
+        currentShlokaId = (currentShlokaId==null)?"1_1":currentShlokaId;
 
-       /* TextView textView=(TextView) findViewById(R.id.editText);
-        textView.setText(firstShloka==null?"Hello World!!!":firstShloka);*/
+        String shlokaText = DataUtil.shlokaTextMap.get(currentShlokaId);
+        Log.d("HomePageActivity", "shlokaText="+shlokaText);
+        shlokaText = (shlokaText==null)?"Hello World":shlokaText;
 
-        final Button nextButton = findViewById(R.id.next_button_id);
+        TextView textView=(TextView) findViewById(R.id.shlokaNumber);
+        textView.setText(currentShlokaId);
+        textView=(TextView) findViewById(R.id.shlokaText);
+        textView.setText(shlokaText);
+
+
+     /*   final Button nextButton = findViewById(R.id.next_button_id);
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, HomePageActivity.class);
@@ -41,7 +50,7 @@ public class HomePageActivity extends AppCompatActivity {
                 textView.setText(nextShloka==null?"Hello World!!!":nextShloka);
                 startActivity(intent);
             }
-        });
+        });*/
 
         /*final Button prevButton = findViewById(R.id.prev_button_id);
         prevButton.setOnClickListener(new View.OnClickListener() {
