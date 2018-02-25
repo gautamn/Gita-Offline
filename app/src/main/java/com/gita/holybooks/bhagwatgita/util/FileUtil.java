@@ -3,6 +3,8 @@ package com.gita.holybooks.bhagwatgita.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.gita.holybooks.bhagwatgita.dto.Chapter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,12 +71,15 @@ public class FileUtil {
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
-                StringBuilder text = new StringBuilder();
-                String chapterId = null;
-                if (line.contains(",")) chapterId = line.substring(0, line.indexOf(","));
-                text.append(line.substring(line.indexOf(",") + 1));
-                Log.d("FileUtil", "loadChaptersInMemory: chapterId=" + chapterId + " text=" + text);
-                DataUtil.chapterTextMap.put(chapterId, text.toString());
+                String str = null;
+                String chapterNumber = null;
+                if (line.contains(",")) chapterNumber = "Chapter " + line.substring(0, line.indexOf(","));
+                str = line.substring(line.indexOf(",") + 1);
+                String[] arr = str.split("-");
+                String title = arr[0];
+                String desc = arr[1];
+                Log.d("FileUtil", "loadChaptersInMemory: chapterId=" + chapterNumber + " title=" + title + " text=" + desc);
+                DataUtil.chapters.add(new Chapter(chapterNumber, title, desc));
             }
         } catch (IOException e) {
             Log.e("FileUtil", "loadChaptersInMemory: Unable to read from resource file=" + resId, e);

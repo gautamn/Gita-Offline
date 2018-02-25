@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AboutUsActivity"
-            android:label="@string/title_activity_about_us"
+            android:name=".activity.HomePageActivity"
+            android:label="@string/activity_home_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

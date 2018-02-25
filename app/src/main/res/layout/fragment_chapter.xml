@@ -12,10 +12,23 @@
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
-        android:id="@+id/chapter_content"
-        android:layout_width="wrap_content"
+        android:id="@+id/chapter_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/chapter_id"
+        android:layout_alignParentRight="@id/chapter_id"
+        />
+
+    <TextView
+        android:id="@+id/chapter_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_alignParentTop="@id/chapter_id"
         android:textAppearance="?attr/textAppearanceListItem" />
 </RelativeLayout>
 <!--

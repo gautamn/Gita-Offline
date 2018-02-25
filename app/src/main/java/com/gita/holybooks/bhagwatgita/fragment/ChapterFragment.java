@@ -1,6 +1,7 @@
 package com.gita.holybooks.bhagwatgita.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.activity.HomePageActivity;
+import com.gita.holybooks.bhagwatgita.dto.Chapter;
 import com.gita.holybooks.bhagwatgita.fragment.dummy.DummyContent.DummyItem;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 import com.gita.holybooks.bhagwatgita.util.SimpleDividerItemDecoration;
@@ -34,7 +38,7 @@ public class ChapterFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private List<String> chapters;
+    private List<Chapter> chapters;
 
     private final String TAG = "ListChaptersFragment";
     private RecyclerView mChaptersRecyclerView;
@@ -65,11 +69,13 @@ public class ChapterFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        chapters = new ArrayList<>(18);
-        for (Map.Entry<String, String> entry : DataUtil.chapterTextMap.entrySet()) {
+        //chapters = new ArrayList<>(18);
+        /*for (Map.Entry<String, String> entry : DataUtil.chapterTextMap.entrySet()) {
             chapters.add("Chapter " + entry.getKey() + " " + entry.getValue());
             Log.d("Chapter",entry.getValue());
-        }
+        }*/
+
+        chapters = DataUtil.chapters;
     }
 
     @Override
@@ -121,22 +127,42 @@ public class ChapterFragment extends Fragment {
     }
 
     private class ChapterHolder extends RecyclerView.ViewHolder {
-        public TextView mTextTextView;
+        public Chapter mChapter;
+        public TextView mChapterNumberView;
+        public TextView mChapterTitleView;
+        public TextView mChapterDescView;
 
         public ChapterHolder(View itemView) {
             super(itemView);
-            mTextTextView = (TextView) itemView.findViewById(R.id.chapter_content);
+            mChapterNumberView = (TextView) itemView.findViewById(R.id.chapter_id);
+            mChapterTitleView = (TextView) itemView.findViewById(R.id.chapter_title);
+            mChapterDescView = (TextView) itemView.findViewById(R.id.chapter_description);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), " clicked!", Toast.LENGTH_SHORT)
+                            .show();
+
+                    String chapter = mChapter.getChapterNumber();
+                    Intent intent = new Intent(getActivity().getApplication(), HomePageActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
-        public void bindData(String text) {
-            mTextTextView.setText(text);
+        public void bindData(Chapter chapter) {
+            mChapter = chapter;
+            mChapterNumberView.setText(chapter.getChapterNumber());
+            mChapterTitleView.setText(chapter.getTitle());
+            mChapterDescView.setText(chapter.getDescription());
         }
     }
 
     private class ChapterAdapter extends RecyclerView.Adapter<ChapterHolder> {
-        private List<String> chapters;
+        private List<Chapter> chapters;
 
-        public ChapterAdapter(List<String> chapters) {
+        public ChapterAdapter(List<Chapter> chapters) {
             this.chapters = chapters;
         }
 
@@ -149,8 +175,8 @@ public class ChapterFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ChapterHolder holder, int position) {
-            String s = chapters.get(position);
-            holder.bindData(s);
+            Chapter chapter = chapters.get(position);
+            holder.bindData(chapter);
 
         }
 
