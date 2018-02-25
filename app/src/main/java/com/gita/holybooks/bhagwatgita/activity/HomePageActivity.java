@@ -41,24 +41,41 @@ public class HomePageActivity extends AppCompatActivity {
         textView.setText(shlokaText);
 
 
-     /*   final Button nextButton = findViewById(R.id.next_button_id);
+        final Button nextButton = findViewById(R.id.next_button_id);
+        final String finalCurrentShlokaId = currentShlokaId;
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, HomePageActivity.class);
-                String nextShloka = DataUtil.getShlokaTextMap().get("1_4");
-                TextView textView=(TextView) findViewById(R.id.editText);
-                textView.setText(nextShloka==null?"Hello World!!!":nextShloka);
+                String nextShlokaId = getNextShlokaId(finalCurrentShlokaId);
+                String nextShlokaText = DataUtil.shlokaTextMap.get(nextShlokaId);
+                TextView textView=(TextView) findViewById(R.id.shlokaNumber);
+                textView.setText(nextShlokaId);
+                textView=(TextView) findViewById(R.id.shlokaText);
+                textView.setText(nextShlokaText);
                 startActivity(intent);
             }
-        });*/
+        });
 
-        /*final Button prevButton = findViewById(R.id.prev_button_id);
+       /* final Button prevButton = findViewById(R.id.prev_button_id);
         prevButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                String previousShlokaId = getPreviousShlokaId(finalCurrentShlokaId);
                 String prevButton = DataUtil.getShlokaTextMap().get("1_2");
                 TextView textView=(TextView) findViewById(R.id.prev_button_id);
                 textView.setText(prevButton==null?"Hello World!!!":prevButton);
             }
         });*/
+    }
+
+    private String getNextShlokaId(String finalCurrentShlokaId) {
+
+        String[] arr = finalCurrentShlokaId.split("_");
+        return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
+    }
+
+    private String getPreviousShlokaId(String finalCurrentShlokaId) {
+
+        String[] arr = finalCurrentShlokaId.split("_");
+        return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
     }
 }

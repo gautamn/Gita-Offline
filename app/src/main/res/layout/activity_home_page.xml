@@ -32,10 +32,10 @@
         android:layout_width="wrap_content"
         android:text="next" />
 
-    <Button
+   <!-- <Button
         android:id="@+id/prev_button_id"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="prev" />
+        android:text="prev" />-->
 
 </android.support.constraint.ConstraintLayout>
