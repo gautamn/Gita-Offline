@@ -7,20 +7,20 @@
     tools:context="com.gita.holybooks.bhagwatgita.activity.HomePageActivity">
 
     <TextView
-        android:id="@+id/shlokaNumber"
+        android:id="@+id/shlokaNumber1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/shlokaNumberText"
+        android:text="@+id/shlokaNumberText1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/shlokaText"
+        android:id="@+id/shlokaText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/shlokaContent"
+        android:text="@+id/shlokaContent1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

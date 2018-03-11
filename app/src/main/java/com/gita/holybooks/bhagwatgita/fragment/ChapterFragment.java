@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity;
 import com.gita.holybooks.bhagwatgita.activity.HomePageActivity;
 import com.gita.holybooks.bhagwatgita.dto.Chapter;
-import com.gita.holybooks.bhagwatgita.fragment.dummy.DummyContent.DummyItem;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 import com.gita.holybooks.bhagwatgita.util.SimpleDividerItemDecoration;
 
@@ -25,10 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+
  * https://www.androidtutorialpoint.com/material-design/listing-items-using-recyclerview/
  */
 public class ChapterFragment extends Fragment {
@@ -37,7 +34,6 @@ public class ChapterFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
     private List<Chapter> chapters;
 
     private final String TAG = "ListChaptersFragment";
@@ -69,12 +65,6 @@ public class ChapterFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        //chapters = new ArrayList<>(18);
-        /*for (Map.Entry<String, String> entry : DataUtil.chapterTextMap.entrySet()) {
-            chapters.add("Chapter " + entry.getKey() + " " + entry.getValue());
-            Log.d("Chapter",entry.getValue());
-        }*/
-
         chapters = DataUtil.chapters;
     }
 
@@ -105,27 +95,6 @@ public class ChapterFragment extends Fragment {
         }*/
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-    }
-
     private class ChapterHolder extends RecyclerView.ViewHolder {
         public Chapter mChapter;
         public TextView mChapterNumberView;
@@ -146,7 +115,7 @@ public class ChapterFragment extends Fragment {
 
                     String shlokaId = mChapter.getChapterNumber()+"_1";
                     DataUtil.shlokaId = shlokaId;
-                    Intent intent = new Intent(getActivity().getApplication(), HomePageActivity.class);
+                    Intent intent = new Intent(getActivity().getApplication(), ChapterSlidePagerActivity.class);
                     startActivity(intent);
                 }
             });
@@ -154,7 +123,7 @@ public class ChapterFragment extends Fragment {
 
         public void bindData(Chapter chapter) {
             mChapter = chapter;
-            mChapterNumberView.setText(chapter.getChapterNumber());
+            mChapterNumberView.setText("Chapter "+chapter.getChapterNumber());
             mChapterTitleView.setText(chapter.getTitle());
             mChapterDescView.setText(chapter.getDescription());
         }

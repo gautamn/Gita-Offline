@@ -44,5 +44,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_about_us">AboutUsActivity</string>
     <string name="activity_home_page">HomePageActivity</string>
+    <string name="activity_chapters">Chapters</string>
 
 </resources>

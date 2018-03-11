@@ -26,7 +26,10 @@
         <activity
             android:name=".activity.HomePageActivity"
             android:label="@string/activity_home_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ChapterSlidePagerActivity"
+            android:label="@string/activity_chapters"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
