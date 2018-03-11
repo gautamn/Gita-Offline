@@ -22,8 +22,6 @@ import java.util.List;
 
 public class ChapterSlidePagerActivity extends FragmentActivity {
 
-    private static final int[] CHAPTER_SHLOKAS = {45,72,12,56};
-
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
@@ -87,10 +85,10 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
                     if(newShlokaId>numberOfShlokas)
                         newShlokaId = numberOfShlokas;
                 }*/
-
+/*
                 Toast.makeText(ChapterSlidePagerActivity.this,"Selected page position: " + position
                         +" DataUtil.shlokaId:"+DataUtil.shlokaId,
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
 
                /* DataUtil.shlokaId =  arr[0] + "_" + (newShlokaId);
                 lastPage=position;*/
@@ -115,7 +113,7 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
     private List<String> getShlokaOfChapter(String chapterId){
 
         List<String> shlokas = new ArrayList<>();
-        int numberOfShlokas = CHAPTER_SHLOKAS[Integer.parseInt(chapterId)];
+        int numberOfShlokas = DataUtil.SHLOKAS_IN_CHAPTER[Integer.parseInt(chapterId)-1];
         for(int i=0; i< numberOfShlokas; i++){
             shlokas.add(DataUtil.shlokaTextMap.get(chapterId+"_"+i));
         }
@@ -152,6 +150,7 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         public ScreenSlidePagerAdapter(FragmentManager fm, String chapterNumber, List<String> shlokaInChapter) {
             super(fm);
             this.shlokaInChapter = shlokaInChapter;
+            Log.d("ScreenSlidePagerAdapter", "chapterNumber="+chapterNumber+" shloka number="+shlokaInChapter.size());
         }
 
         @Override

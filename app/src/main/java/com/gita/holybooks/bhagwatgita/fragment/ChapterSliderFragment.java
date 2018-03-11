@@ -50,11 +50,10 @@ public class ChapterSliderFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.chapter_slider_page, container, false);
         TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
         TextView tvShlokaText=(TextView) view.findViewById(R.id.shlokaText);
-
-
         int currentShloka = Integer.parseInt(position)+1;
         String[] arr = DataUtil.shlokaId.split("_");
         int chapterNumber = Integer.parseInt(arr[0]);
