@@ -24,16 +24,17 @@ import com.gita.holybooks.bhagwatgita.util.DataUtil;
 public class ChapterSliderFragment extends Fragment {
 
     private String title;
+    private String position;
     private String shlokaId;
 
     private OnFragmentInteractionListener mListener;
 
     public ChapterSliderFragment() {}
 
-    public static ChapterSliderFragment newInstance(String title, String shlokaId) {
+    public static ChapterSliderFragment newInstance(String title, String position) {
         ChapterSliderFragment fragment = new ChapterSliderFragment();
         Bundle args = new Bundle();
-        args.putString("shlokaId", shlokaId);
+        args.putString("position", position);
         args.putString("title", title);
         fragment.setArguments(args);
         return fragment;
@@ -44,6 +45,7 @@ public class ChapterSliderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         shlokaId = getArguments().getString("shlokaId", "1_1");
         title = getArguments().getString("title", "This is default title");
+        position = getArguments().getString("position", "0");
     }
 
     @Override
@@ -52,12 +54,17 @@ public class ChapterSliderFragment extends Fragment {
         TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
         TextView tvShlokaText=(TextView) view.findViewById(R.id.shlokaText);
 
-        String currentShlokaId = DataUtil.shlokaId;
-        Log.d("HomePageActivity", "currentShlokaId="+currentShlokaId);
+
+        int currentShloka = Integer.parseInt(position)+1;
+        String[] arr = DataUtil.shlokaId.split("_");
+        int chapterNumber = Integer.parseInt(arr[0]);
+        String currentShlokaId = chapterNumber + "_" + currentShloka;
+        DataUtil.shlokaId = chapterNumber + "_" + (currentShloka);
+        Log.d("ChapterSliderFragment", "currentShlokaId="+currentShlokaId);
         currentShlokaId = (currentShlokaId==null)?"1_1":currentShlokaId;
 
         String shlokaText = DataUtil.shlokaTextMap.get(currentShlokaId);
-        Log.d("HomePageActivity", "shlokaText="+shlokaText);
+        Log.d("ChapterSliderFragment", "shlokaText="+shlokaText);
         shlokaText = (shlokaText==null)?"Hello World":shlokaText;
 
         tvShlokaNumber.setText(currentShlokaId);

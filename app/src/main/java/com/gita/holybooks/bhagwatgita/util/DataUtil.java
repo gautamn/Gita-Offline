@@ -23,4 +23,6 @@ public class DataUtil {
 
     /*Current Shloka Id*/
     public static String shlokaId;
+
+    public static final int[] SHLOKAS_IN_CHAPTER = {47,72,43,42};
 }

@@ -1,20 +1,15 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
@@ -24,7 +19,6 @@ import com.gita.holybooks.bhagwatgita.util.FileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ChapterSlidePagerActivity extends FragmentActivity {
 
@@ -50,6 +44,7 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         String currentShloka = DataUtil.shlokaId;
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
+                currentShloka.split("_")[0],
                 getShlokaOfChapter(currentShloka.split("_")[0]));
         mPager.setAdapter(mPagerAdapter);
 
@@ -71,26 +66,48 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         // Attach the page change listener inside the activity
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            // This method will be invoked when a new page becomes selected.
+            int lastPage = 0;
+            int newShlokaId = 0;
+
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(ChapterSlidePagerActivity.this,
-                        "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+
+                /*String[] arr = DataUtil.shlokaId.split("_");
+                int numberOfShlokas = DataUtil.SHLOKAS_IN_CHAPTER[Integer.valueOf(arr[0])-1];
+                newShlokaId = Integer.valueOf(arr[1]);
+                if(lastPage > position){
+                    //scrolled left
+                    newShlokaId = position - 1;
+                    if(newShlokaId<1) newShlokaId = 1;
+                }
+                else if(lastPage<position){
+                    //scrolled right
+                    newShlokaId = position + 1;
+
+                    if(newShlokaId>numberOfShlokas)
+                        newShlokaId = numberOfShlokas;
+                }*/
+
+                Toast.makeText(ChapterSlidePagerActivity.this,"Selected page position: " + position
+                        +" DataUtil.shlokaId:"+DataUtil.shlokaId,
+                        Toast.LENGTH_SHORT).show();
+
+               /* DataUtil.shlokaId =  arr[0] + "_" + (newShlokaId);
+                lastPage=position;*/
             }
 
             // This method will be invoked when the current page is scrolled
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Toast.makeText(ChapterSlidePagerActivity.this,
-                        "scrolled Selected page position: " + position, Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(ChapterSlidePagerActivity.this,
+                        "scrolled Selected page positionOffset: " + position, Toast.LENGTH_SHORT).show();*/
             }
 
             // Called when the scroll state changes:
             // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
             @Override
             public void onPageScrollStateChanged(int state) {
-                Toast.makeText(ChapterSlidePagerActivity.this,
-                        "Selected page  scroll state" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ChapterSlidePagerActivity.this,"Selected page  scroll state" , Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,22 +147,21 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-        private List<String> shlokaData;
+        private List<String> shlokaInChapter;
 
-        public ScreenSlidePagerAdapter(FragmentManager fm, List<String> shlokaData) {
+        public ScreenSlidePagerAdapter(FragmentManager fm, String chapterNumber, List<String> shlokaInChapter) {
             super(fm);
-            this.shlokaData = shlokaData;
+            this.shlokaInChapter = shlokaInChapter;
         }
 
         @Override
         public Fragment getItem(int position) {
-
-            return ChapterSliderFragment.newInstance("1_1", "1_1");
+            return ChapterSliderFragment.newInstance("Title", String.valueOf(position));
         }
 
         @Override
         public int getCount() {
-            return shlokaData.size();
+            return shlokaInChapter.size();
         }
 
         @Override
