@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.SettingsActivity" />
         <activity
-            android:name=".activity.NotificationActivity"
+            android:name=".activity.ShlokaOfTheDayActivity"
             android:label="@string/app_name" />
 
         <!--
@@ -39,7 +39,7 @@
             android:name=".AlarmReceiver"
             android:process=":remote" />
 
-        <activity android:name=".activity.NotificationActivity"></activity>
+        <activity android:name=".activShlokaOfTheDayActivityvity"></activity>
         -->
         <service
             android:name=".service.NotificationService"

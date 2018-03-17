@@ -8,12 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
-import com.gita.holybooks.bhagwatgita.activity.NotificationActivity;
+import com.gita.holybooks.bhagwatgita.activity.ShlokaOfTheDayActivity;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 
 import java.util.Random;
@@ -72,7 +71,7 @@ public class NotificationService extends Service {
                     .setCustomBigContentView(expandedView);
         }
 
-        Intent notificationIntent = new Intent(this, NotificationActivity.class);
+        Intent notificationIntent = new Intent(this, ShlokaOfTheDayActivity.class);
         notificationIntent.putExtra("shloka_id", shlokaNumber); // <-- HERE I PUT THE EXTRA VALUE
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
