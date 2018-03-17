@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,10 @@ import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity;
-import com.gita.holybooks.bhagwatgita.activity.HomePageActivity;
 import com.gita.holybooks.bhagwatgita.dto.Chapter;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
-import com.gita.holybooks.bhagwatgita.util.SimpleDividerItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
 
@@ -73,7 +68,6 @@ public class ChapterFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         mChaptersRecyclerView = (RecyclerView) view.findViewById(R.id.chapterRecyclerView);
-        mChaptersRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
         mChaptersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;

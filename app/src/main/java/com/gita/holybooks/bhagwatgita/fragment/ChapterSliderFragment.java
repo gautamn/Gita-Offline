@@ -54,6 +54,8 @@ public class ChapterSliderFragment extends Fragment {
         View view = inflater.inflate(R.layout.chapter_slider_page, container, false);
         TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
         TextView tvShlokaText=(TextView) view.findViewById(R.id.shlokaText);
+        TextView tvTransText=(TextView) view.findViewById(R.id.shlokaTrans);
+
         int currentShloka = Integer.parseInt(position)+1;
         String[] arr = DataUtil.shlokaId.split("_");
         int chapterNumber = Integer.parseInt(arr[0]);
@@ -66,8 +68,9 @@ public class ChapterSliderFragment extends Fragment {
         Log.d("ChapterSliderFragment", "shlokaText="+shlokaText);
         shlokaText = (shlokaText==null)?"Hello World":shlokaText;
 
-        tvShlokaNumber.setText(currentShlokaId);
+        tvShlokaNumber.setText("Chapter "+ chapterNumber+" Shloka "+currentShloka);
         tvShlokaText.setText(shlokaText);
+        tvTransText.setText(shlokaText);
 
         return view;
     }

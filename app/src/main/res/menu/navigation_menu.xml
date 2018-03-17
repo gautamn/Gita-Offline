@@ -10,33 +10,24 @@
     <group android:checkableBehavior="single" android:id="@+id/first_section">
         <item
             android:id="@+id/nav_chapters"
-            android:icon="@drawable/ic_description_black_24dp"
+            android:icon="@drawable/ic_chapters"
             android:title="@string/nav_chapters" />
 
         <item
             android:id="@+id/nav_shloka_of_the_day"
-            android:icon="@drawable/ic_description_black_24dp"
+            android:icon="@drawable/ic_shloka_of_day"
             android:title="@string/nav_shloka_of_the_day" />
 
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_description_black_24dp"
-            android:title="@string/nav_search" />
-
-        <item
             android:id="@+id/nav_bookmark"
-            android:icon="@drawable/ic_description_black_24dp"
+            android:icon="@drawable/ic_bookmarks"
             android:title="@string/nav_bookmark" />
-        <item
-            android:id="@+id/nav_notes"
-            android:icon="@drawable/ic_description_black_24dp"
-            android:title="@string/nav_notes" />
     </group>
 
     <group android:checkableBehavior="single" android:id="@+id/second_section">
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/ic_description_black_24dp"
+            android:icon="@drawable/ic_share"
             android:title="@string/nav_share" />
 
         <item
@@ -46,25 +37,23 @@
 
         <item
             android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_rate"
             android:title="@string/nav_rate" />
         <item
             android:id="@+id/nav_ads_free"
+            android:icon="@drawable/ic_ads_free"
             android:title="@string/nav_ads_free" />
     </group>
 
     <group android:checkableBehavior="single" android:id="@+id/third_section">
 
             <item
-                android:id="@+id/nav_about_us"
-                android:title="@string/nav_about_us" />
-            <item
                 android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
                 android:title="@string/nav_settings" />
             <item
-                android:id="@+id/nav_language"
-                android:title="@string/nav_language" />
-            <item
                 android:id="@+id/nav_help"
+                android:icon="@drawable/ic_help"
                 android:title="@string/nav_help" />
 
     </group>
