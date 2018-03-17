@@ -14,10 +14,10 @@ public class NotificationActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
-            Log.i( "dd","Extra:" + extras.getString("item_id") );
+            Log.i( "dd","Extra:" + extras.getString("shloka_id") );
 
         Toast.makeText(getApplicationContext(),
-                "Do Something NOW" + extras.getString("item_id"),
+                "Do Something NOW" + extras.getString("shloka_id"),
                 Toast.LENGTH_LONG).show();
     }
 }

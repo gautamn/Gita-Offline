@@ -1,16 +1,22 @@
 package com.gita.holybooks.bhagwatgita.service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.activity.NotificationActivity;
+import com.gita.holybooks.bhagwatgita.util.DataUtil;
+
+import java.util.Random;
 
 public class NotificationService extends Service {
 
@@ -38,41 +44,59 @@ public class NotificationService extends Service {
     public void onStart(Intent intent, int startId) {
         super.onCreate();
         Toast.makeText(this,"Service started", Toast.LENGTH_LONG).show();
-        addNotification();
+        sendShlokaOfTheDay();
     }
 
-    private void addNotification() {
+    private void sendShlokaOfTheDay() {
 
-        /*Notification noti = new Notification.Builder(this)
-                .setContentTitle("New mail from " + "test@gmail.com")
-                .setContentText("Subject").setSmallIcon(R.drawable.icon)
-                .setContentIntent(pIntent)
-                .addAction(R.drawable.icon, "Call", pIntent)
-                .addAction(R.drawable.icon, "More", pIntent)
-                .addAction(R.drawable.icon, "And more", pIntent).build();
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // hide the notification after its selected
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+        int favShlokaIndex = getRandomNumberInRange(0, DataUtil.FAVOURITE_SHLOKAS.length);
+        String shlokaNumber = DataUtil.FAVOURITE_SHLOKAS[favShlokaIndex];
+        String shlokaContent = DataUtil.shlokaTextMap.get(shlokaNumber);
+        addNotification(shlokaNumber, shlokaContent);
+    }
 
-        notificationManager.notify(0, noti);*/
+    private void addNotification(String shlokaNumber, String shlokaContent) {
 
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_drawer)
-                        .setContentTitle("Notifications Example")
-                        .setContentText("This is a test notification");
+
+        RemoteViews expandedView = new RemoteViews(getPackageName(), R.layout.notification);
+        expandedView.setTextViewText(R.id.shlokaText, shlokaContent);
+
+
+        Notification.Builder builder =
+                null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            builder = new Notification.Builder(this)
+                    .setSmallIcon(R.drawable.ic_drawer)
+                    .setContentTitle("Shloka Of The Day")
+                    .setContentText(shlokaContent)
+                    .setCustomBigContentView(expandedView);
+        }
 
         Intent notificationIntent = new Intent(this, NotificationActivity.class);
-        notificationIntent.putExtra("item_id", "1001"); // <-- HERE I PUT THE EXTRA VALUE
+        notificationIntent.putExtra("shloka_id", shlokaNumber); // <-- HERE I PUT THE EXTRA VALUE
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
+        builder.setAutoCancel(true);
+
 
         // Add as notification
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            manager.notify(0, builder.build());
+        }
 
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }
