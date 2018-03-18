@@ -86,4 +86,72 @@ public class FileUtil {
         }
 
     }
+
+
+    public static void loadEnglishTransInMemory(Context ctx, int resId) {
+
+        InputStream inputStream = ctx.getResources().openRawResource(resId);
+        InputStreamReader inputReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputReader);
+        String line;
+        StringBuilder sb = new StringBuilder();
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+        }catch (IOException e) {
+            Log.e("FileUtil", "loadTransInMemory: Unable to read from resource file=" + resId, e);
+            return;
+        }
+        String content = sb.toString();
+        int chapter = 1;
+        int shloka = 1;
+        int totalShlokasParsed = 0;
+        String shlokaContent = null;
+        while(totalShlokasParsed <=700 && chapter<=18){
+            if((shloka) < DataUtil.SHLOKAS_IN_CHAPTER[chapter-1] && chapter<=18){
+                shlokaContent = parseShloka(chapter, shloka, content, false);
+                shlokaContent = shlokaContent.replace('\\', '\b');
+                DataUtil.englishTransTextMap.put(chapter+"_"+shloka, shlokaContent);
+                Log.d("FileUtil", "loadEnglishTransInMemory: shlokaNumber="+shloka+" shlokaContent="+shlokaContent);
+                shloka = shloka + 1;
+            }else if(shloka  == DataUtil.SHLOKAS_IN_CHAPTER[chapter-1]){
+
+                shlokaContent = parseShloka(chapter, shloka, content, true);
+                if(shlokaContent!=null)
+                    shlokaContent = shlokaContent.replace('\\', '\b');
+                DataUtil.englishTransTextMap.put(chapter+"_"+shloka, shlokaContent);
+                Log.d("FileUtil", "loadEnglishTransInMemory: shlokaNumber="+shloka+" shlokaContent="+shlokaContent);
+                chapter = chapter + 1;
+                shloka = 1;
+            }else{
+
+                if(chapter>=18) break;
+            }
+
+            totalShlokasParsed++;
+        }
+    }
+
+    private static String parseShloka(int currentChapter, int currentShloka, String content, boolean isChapterIncremented) {
+
+        String shlokaNumber = currentChapter+"."+currentShloka;
+        String nextShlokaNumber = currentChapter+"."+(currentShloka+1);
+
+        int fromIndex = content.indexOf(shlokaNumber);
+        int endIndex = content.indexOf(nextShlokaNumber);
+
+        if(isChapterIncremented){
+            nextShlokaNumber = (currentChapter+1)+"."+(1);
+            endIndex = content.indexOf(nextShlokaNumber);
+        }
+
+        String shlokaContent = null;
+        if(fromIndex>=0 && endIndex>0){
+            shlokaContent = content.substring(fromIndex, endIndex);
+        }
+
+        return shlokaContent;
+    }
+
 }

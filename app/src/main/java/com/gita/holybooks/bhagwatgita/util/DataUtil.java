@@ -17,6 +17,7 @@ import java.util.Map;
 public class DataUtil {
 
     public static Map<String, String> shlokaTextMap = new LinkedHashMap<>();
+    public static Map<String, String> englishTransTextMap = new LinkedHashMap<>();
 
     /*Information of Gita Chapters*/
     public static List<Chapter> chapters = new ArrayList<>(18);

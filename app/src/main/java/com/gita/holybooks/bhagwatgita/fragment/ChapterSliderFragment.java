@@ -70,7 +70,7 @@ public class ChapterSliderFragment extends Fragment {
 
         tvShlokaNumber.setText("Chapter "+ chapterNumber+" Shloka "+currentShloka);
         tvShlokaText.setText(shlokaText);
-        tvTransText.setText(shlokaText);
+        tvTransText.setText(DataUtil.englishTransTextMap.get(currentShlokaId));
 
         return view;
     }

@@ -54,6 +54,9 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         if(DataUtil.shlokaTextMap.isEmpty())
             FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
 
+        if(DataUtil.englishTransTextMap.isEmpty())
+            FileUtil.loadEnglishTransInMemory(getApplicationContext(), R.raw.english_translation);
+
         Log.d("ChapterSlider", "mPager.getCurrentItem="+mPager.getCurrentItem());
         if(mPager.getCurrentItem()>0) {
             String[] arr = currentShloka.split("_");

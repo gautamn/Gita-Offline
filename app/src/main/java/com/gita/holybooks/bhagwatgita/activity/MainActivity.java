@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
         FileUtil.loadChaptersInMemory(getApplicationContext(), R.raw.chapters);
+        FileUtil.loadEnglishTransInMemory(getApplicationContext(), R.raw.english_translation);
     }
 
     @Override
