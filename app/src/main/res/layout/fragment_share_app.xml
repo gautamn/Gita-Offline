@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.gita.holybooks.bhagwatgita.fragment.ShareAppFragment">
+
+    <ImageView
+        android:id="@+id/shareApp"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:src="@drawable/share_app" />
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shareApp"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="5dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="Because of you the concept of Universe is reaching to millions around the world. Thank you !!! " />
+
+
+    <TextView
+        android:id="@+id/awareness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/msg"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="5dp"
+        android:textSize="25dp"
+        android:fontFamily="PT Serif"
+        android:text="Let's spread the awareness"
+        android:textAlignment="center"
+        android:textStyle="italic" />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/awareness"
+        android:background="@drawable/button_selector"
+        android:text="SHARE THE GITA APP"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="5dp"
+        android:height="20dp"
+        android:onClick="shareApp"/>
+
+</RelativeLayout>

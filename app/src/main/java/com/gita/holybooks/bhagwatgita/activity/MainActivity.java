@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.fragment.ChapterFragment;
 import com.gita.holybooks.bhagwatgita.fragment.HomeFragment;
+import com.gita.holybooks.bhagwatgita.fragment.ShareAppFragment;
 import com.gita.holybooks.bhagwatgita.util.FileUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_HOME = "home";
     private static final String TAG_CHAPTER = "chapters";
     private static final String TAG_SHLOKA_OF_THE_DAY = "shloka_of_the_day";
+    private static final String TAG_SHARE = "share";
 
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -122,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_shloka_of_the_day:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_SHLOKA_OF_THE_DAY;
+                        break;
+
+                    case R.id.nav_share:
+                        navItemIndex = 3;
+                        CURRENT_TAG = TAG_SHARE;
                         break;
 
                     case R.id.nav_settings:
@@ -228,6 +235,10 @@ public class MainActivity extends AppCompatActivity {
                 ChapterFragment chapterFragment = new ChapterFragment();
                 return chapterFragment;
 
+            case 3:
+                ShareAppFragment shareAppFragment = new ShareAppFragment();
+                return shareAppFragment;
+
             default:
                 return new HomeFragment();
         }
@@ -289,4 +300,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void shareApp(View view) {
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Read Bhagwad Gita in English for free. Download now http://abc.com");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
 }
