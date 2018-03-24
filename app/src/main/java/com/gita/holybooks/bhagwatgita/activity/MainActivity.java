@@ -1,18 +1,12 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
@@ -64,23 +59,17 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mHandler = new Handler();
         configureNavigationDrawer();
-        //configureToolbar();
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-
-        // load toolbar titles from string resources
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
         FileUtil.loadChaptersInMemory(getApplicationContext(), R.raw.chapters);
         FileUtil.loadEnglishTransInMemory(getApplicationContext(), R.raw.english_translation);
@@ -92,13 +81,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-   /* private void configureToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_list_black_24dp);
-        actionbar.setDisplayHomeAsUpEnabled(true);
-    }*/
-
     private void configureNavigationDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -106,13 +88,10 @@ public class MainActivity extends AppCompatActivity {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-            // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
@@ -125,28 +104,20 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_SHLOKA_OF_THE_DAY;
                         break;
-
                     case R.id.nav_share:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_SHARE;
-                        break;
-
+                        startActivity(new Intent(MainActivity.this, ShareActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;
                     case R.id.nav_settings:
                         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                         drawerLayout.closeDrawers();
                         return true;
-
-
-                   /* case R.id.nav_privacy_policy:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-                        drawerLayout.closeDrawers();
-                        return true;*/
                     default:
                         navItemIndex = 0;
                 }
 
-                //Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) {
                     menuItem.setChecked(false);
                 } else {
@@ -160,12 +131,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /***
-     * Returns respected fragment that user
-     * selected from navigation menu
-     */
+
     private void loadHomeFragment() {
-        // selecting appropriate nav menu item
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
 
         // set toolbar title
@@ -176,35 +143,28 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawerLayout.closeDrawers();
 
-            // show or hide the fab button
-            //toggleFab();
             return;
         }
-
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
-                // update the main content by replacing fragments
-                Fragment fragment = getHomeFragment();
+                Fragment fragment = getCurrentFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
+                if (getSupportFragmentManager().getFragments() != null) {
+                    fragmentTransaction.addToBackStack(CURRENT_TAG);
+                }
+                //fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commitAllowingStateLoss();
+                //fragmentTransaction.commit();
             }
         };
 
-        // If mPendingRunnable is not null, then add to the message queue
         if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
         }
-
-        // show or hide the fab button
-        //toggleFab();
 
         //Closing drawer on item click
         drawerLayout.closeDrawers();
@@ -214,15 +174,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // show or hide the fab
-   /* private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
-    }*/
 
-    private Fragment getHomeFragment() {
+
+    private Fragment getCurrentFragment() {
 
         Log.d("Fragment","navItemIndex=="+navItemIndex);
         switch (navItemIndex) {
@@ -246,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
             return;
@@ -262,6 +217,12 @@ public class MainActivity extends AppCompatActivity {
                 loadHomeFragment();
                 return;
             }
+        }
+
+        final ShareAppFragment fragment = (ShareAppFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE);
+
+        if (fragment!=null && fragment.allowBackPressed()) {
+            super.onBackPressed();
         }
 
         super.onBackPressed();
@@ -299,13 +260,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void shareApp(View view) {
-
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Read Bhagwad Gita in English for free. Download now http://abc.com");
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
-    }
 }

@@ -1,5 +1,6 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -46,21 +48,21 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
                 getShlokaOfChapter(currentShloka.split("_")[0]));
         mPager.setAdapter(mPagerAdapter);
 
-        if(getActionBar()!=null)
+        if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        if(DataUtil.shlokaTextMap.isEmpty())
+        if (DataUtil.shlokaTextMap.isEmpty())
             FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
 
-        if(DataUtil.englishTransTextMap.isEmpty())
+        if (DataUtil.englishTransTextMap.isEmpty())
             FileUtil.loadEnglishTransInMemory(getApplicationContext(), R.raw.english_translation);
 
-        Log.d("ChapterSlider", "mPager.getCurrentItem="+mPager.getCurrentItem());
-        if(mPager.getCurrentItem()>0) {
+        Log.d("ChapterSlider", "mPager.getCurrentItem=" + mPager.getCurrentItem());
+        if (mPager.getCurrentItem() > 0) {
             String[] arr = currentShloka.split("_");
-            DataUtil.shlokaId = arr[0]+"_"+mPager.getCurrentItem();
+            DataUtil.shlokaId = arr[0] + "_" + mPager.getCurrentItem();
         }
 
 
@@ -113,19 +115,19 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         });
     }
 
-    private List<String> getShlokaOfChapter(String chapterId){
+    private List<String> getShlokaOfChapter(String chapterId) {
 
         List<String> shlokas = new ArrayList<>();
-        int numberOfShlokas = DataUtil.SHLOKAS_IN_CHAPTER[Integer.parseInt(chapterId)-1];
-        for(int i=0; i< numberOfShlokas; i++){
-            shlokas.add(DataUtil.shlokaTextMap.get(chapterId+"_"+i));
+        int numberOfShlokas = DataUtil.SHLOKAS_IN_CHAPTER[Integer.parseInt(chapterId) - 1];
+        for (int i = 0; i < numberOfShlokas; i++) {
+            shlokas.add(DataUtil.shlokaTextMap.get(chapterId + "_" + i));
         }
 
         return shlokas;
     }
 
     @Override
-    public boolean onNavigateUp(){
+    public boolean onNavigateUp() {
         finish();
         return true;
     }
@@ -142,6 +144,15 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         }
     }
 
+    public void shareApp(View view) {
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Read Bhagwad Gita in English for free. Download now http://abc.com");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
@@ -153,7 +164,7 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         public ScreenSlidePagerAdapter(FragmentManager fm, String chapterNumber, List<String> shlokaInChapter) {
             super(fm);
             this.shlokaInChapter = shlokaInChapter;
-            Log.d("ScreenSlidePagerAdapter", "chapterNumber="+chapterNumber+" shloka number="+shlokaInChapter.size());
+            Log.d("ScreenSlidePagerAdapter", "chapterNumber=" + chapterNumber + " shloka number=" + shlokaInChapter.size());
         }
 
         @Override

@@ -3,13 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.gita.holybooks.bhagwatgita.fragment.ShareAppFragment">
+    tools:context="com.gita.holybooks.bhagwatgita.activity.ShareActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/shareToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+         />
 
     <ImageView
         android:id="@+id/shareApp"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:src="@drawable/share_app" />
+        android:src="@drawable/share_app"
+        android:layout_below="@+id/shareToolBar"/>
 
     <TextView
         android:id="@+id/msg"
@@ -38,6 +47,7 @@
         android:textStyle="italic" />
 
     <Button
+        android:id="@+id/shareAppButton"
         android:layout_width="300dp"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
@@ -48,6 +58,8 @@
         android:layout_marginTop="30dp"
         android:paddingHorizontal="5dp"
         android:height="20dp"
-        android:onClick="shareApp"/>
+        android:clickable="true"
+        android:onClick="shareApp"
+        />
 
-</RelativeLayout>
+    </RelativeLayout>
