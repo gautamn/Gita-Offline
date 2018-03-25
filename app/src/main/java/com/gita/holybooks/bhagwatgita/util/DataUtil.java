@@ -27,5 +27,5 @@ public class DataUtil {
 
     public static final int[] SHLOKAS_IN_CHAPTER = {47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 21, 27, 20, 24, 28, 78};
 
-    public static final String[] FAVOURITE_SHLOKAS = {"1_1", "11_3", "2_4"};
+    public static final String[] FAVOURITE_SHLOKAS = {"1_1", "11_3", "2_4", "2_1", "2_2", "2_3"};
 }

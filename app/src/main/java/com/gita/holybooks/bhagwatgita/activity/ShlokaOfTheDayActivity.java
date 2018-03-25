@@ -24,21 +24,21 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
         if(extras != null)
             Log.i( "dd","Extra:" + extras.getString("shloka_id") );
 
-        Toast.makeText(getApplicationContext(),"Do Something NOW" + extras.getString("shloka_id"),
-                Toast.LENGTH_LONG).show();
         shlokaId = extras.getString("shloka_id");
-        setContentView(R.layout.shloka_of_the_day);
+        setContentView(R.layout.chapter_slider_page);
 
-        //shlokaText = DataUtil.shlokaTextMap.get(shlokaId); ---? for 11_3 shlokaText was null
+        TextView tvShlokaNumber=(TextView) findViewById(R.id.shlokaNumber);
+        TextView tvShlokaText=(TextView) findViewById(R.id.shlokaText);
+        TextView tvTransText=(TextView) findViewById(R.id.shlokaTrans);
 
-        shlokaText = "Hello World";
+        String currentShlokaId = extras.getString("shloka_id");;
+        String shlokaText = DataUtil.shlokaTextMap.get(currentShlokaId);
+        shlokaText = (shlokaText==null)?"Hello World":shlokaText;
 
-        TextView textView=(TextView) findViewById(R.id.shlokaOfTheDayId);
-        textView.setText(shlokaId);
-        textView=(TextView) findViewById(R.id.shlokaOfTheDayContentId);
-        textView.setText(shlokaText);
-
-
+        String[] arr = currentShlokaId.split("_");
+        tvShlokaNumber.setText("Chapter "+ arr[0]+" Shloka "+arr[1]);
+        tvShlokaText.setText(shlokaText);
+        tvTransText.setText(DataUtil.englishTransTextMap.get(currentShlokaId));
     }
 
     public void shareContent(View view) {

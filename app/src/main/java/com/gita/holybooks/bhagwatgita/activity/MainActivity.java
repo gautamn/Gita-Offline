@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_CHAPTER = "chapters";
     private static final String TAG_SHLOKA_OF_THE_DAY = "shloka_of_the_day";
     private static final String TAG_SHARE = "share";
+    private static final String TAG_RATE = "rate";
 
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             loadHomeFragment();
         }
 
+        FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
         FileUtil.loadChaptersInMemory(getApplicationContext(), R.raw.chapters);
         FileUtil.loadEnglishTransInMemory(getApplicationContext(), R.raw.english_translation);
     }
@@ -110,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, ShareActivity.class));
                         drawerLayout.closeDrawers();
                         return true;
+
+                    case R.id.nav_rate:
+                        navItemIndex = 4;
+                        CURRENT_TAG = TAG_RATE;
+                        startActivity(new Intent(MainActivity.this, RateAppActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;
+
                     case R.id.nav_settings:
                         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                         drawerLayout.closeDrawers();
