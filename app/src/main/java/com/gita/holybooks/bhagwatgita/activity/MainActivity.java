@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mHandler = new Handler();
         configureNavigationDrawer();
@@ -107,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_CHAPTER;
                         break;
+                        /*startActivity(new Intent(MainActivity.this, ChapterActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;*/
 
                     case R.id.nav_shloka_of_the_day:
                         navItemIndex = 2;
@@ -185,7 +189,8 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
 
         // refresh toolbar menu
-        invalidateOptionsMenu();
+        //invalidateOptionsMenu();
+
     }
 
     private Fragment getCurrentFragment() {
@@ -200,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 if(getSupportActionBar()!=null){
                     getSupportActionBar().setTitle("List of Chapters");
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setDisplayShowHomeEnabled(true);
                 }
                 ChapterFragment chapterFragment = new ChapterFragment();
                 return chapterFragment;
