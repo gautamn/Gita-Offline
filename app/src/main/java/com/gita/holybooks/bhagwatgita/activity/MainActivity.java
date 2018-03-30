@@ -1,6 +1,8 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,20 +18,23 @@ import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.fragment.ChapterFragment;
 import com.gita.holybooks.bhagwatgita.fragment.HomeFragment;
 import com.gita.holybooks.bhagwatgita.fragment.ShareAppFragment;
-import com.gita.holybooks.bhagwatgita.util.FileUtil;
+import com.gita.holybooks.bhagwatgita.util.DataUtil;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private View navHeader;
-    private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     // index to identify current nav menu item
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
+    List<String> bookMarkedShlokas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +78,7 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-
-        FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
-        FileUtil.loadChaptersInMemory(getApplicationContext(), R.raw.chapters);
-        FileUtil.loadEnglishTransInMemory(getApplicationContext(), R.raw.english_translation);
+        DataUtil.loadMasterDataInMemory(getApplicationContext());
     }
 
     @Override
@@ -98,14 +102,19 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
+
                     case R.id.nav_chapters:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_CHAPTER;
                         break;
+
                     case R.id.nav_shloka_of_the_day:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_SHLOKA_OF_THE_DAY;
-                        break;
+                        startActivity(new Intent(MainActivity.this, ShlokaOfTheDayActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;
+
                     case R.id.nav_share:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_SHARE;
@@ -144,10 +153,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadHomeFragment() {
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
-
-        // set toolbar title
-        //getSupportActionBar().setTitle(activityTitles[navItemIndex]);
-
         // if user select the current navigation menu again, don't do anything
         // just close the navigation drawer
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
@@ -183,12 +188,9 @@ public class MainActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
-
-
-
     private Fragment getCurrentFragment() {
 
-        Log.d("Fragment","navItemIndex=="+navItemIndex);
+        Log.d("Fragment", "navItemIndex==" + navItemIndex);
         switch (navItemIndex) {
 
             case 0:
@@ -196,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 1:
+                if(getSupportActionBar()!=null){
+                    getSupportActionBar().setTitle("List of Chapters");
+                }
                 ChapterFragment chapterFragment = new ChapterFragment();
                 return chapterFragment;
 
@@ -231,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ShareAppFragment fragment = (ShareAppFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE);
 
-        if (fragment!=null && fragment.allowBackPressed()) {
+        if (fragment != null && fragment.allowBackPressed()) {
             super.onBackPressed();
         }
 
@@ -241,8 +246,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(actionBarDrawerToggle.onOptionsItemSelected(item))
-            return  true;
+        if (actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -269,5 +274,28 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+   /* Button bookMarkButton;
+    public void bookMarkShloka(View view) {
+        bookMarkButton = (Button) view.findViewById(R.id.bookMarkShloka);
+        bookMarkButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
+                bookMarkedShlokas = new ArrayList<>();
+                bookMarkedShlokas.add(tvShlokaNumber.toString());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(bookMarkedShlokas);
+
+                SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
+                editor.putString("bookMarkedShloka", json);
+                editor.commit();
+
+                Toast.makeText(MainActivity.this, "Shloka Bookmarked", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }*/
 
 }

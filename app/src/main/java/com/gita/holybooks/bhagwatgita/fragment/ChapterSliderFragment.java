@@ -1,6 +1,7 @@
 package com.gita.holybooks.bhagwatgita.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.gita.holybooks.bhagwatgita.R;
@@ -26,6 +28,7 @@ public class ChapterSliderFragment extends Fragment {
     private String title;
     private String position;
     private String shlokaId;
+    private Button bookMarkButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,6 +78,7 @@ public class ChapterSliderFragment extends Fragment {
         return view;
     }
 
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -109,7 +113,7 @@ public class ChapterSliderFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private String getNextShlokaId(String finalCurrentShlokaId) {
+    /*private String getNextShlokaId(String finalCurrentShlokaId) {
 
         String[] arr = finalCurrentShlokaId.split("_");
         return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
@@ -119,5 +123,5 @@ public class ChapterSliderFragment extends Fragment {
 
         String[] arr = finalCurrentShlokaId.split("_");
         return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
-    }
+    }*/
 }

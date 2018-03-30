@@ -30,7 +30,9 @@
         android:textSize="15dp"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:text="Because of you the concept of Universe is reaching to millions around the world. Thank you !!! " />
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:text="Because of you the God words is reaching to millions around the world. Thank you !!! " />
 
 
     <TextView
@@ -40,9 +42,9 @@
         android:layout_below="@+id/msg"
         android:layout_marginTop="30dp"
         android:paddingHorizontal="5dp"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:fontFamily="PT Serif"
-        android:text="Let's spread the awareness"
+        android:text="Keep on spreading the awareness"
         android:textAlignment="center"
         android:textStyle="italic" />
 

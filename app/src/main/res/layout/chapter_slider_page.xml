@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gita.holybooks.bhagwatgita.activity.HomePageActivity">
+    tools:context="com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -71,6 +71,7 @@
                 android:height="20dp"
                 />
             <Button
+                android:id="@+id/bt_bookmark"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/share"
@@ -80,6 +81,7 @@
                 android:layout_marginBottom="10dp"
                 android:paddingHorizontal="5dp"
                 android:height="20dp"
+                android:onClick="bookMarkShloka"
                 />
 
 

@@ -1,6 +1,8 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 import com.gita.holybooks.bhagwatgita.util.FileUtil;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -78,4 +85,7 @@ public class HomePageActivity extends AppCompatActivity {
         String[] arr = finalCurrentShlokaId.split("_");
         return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
     }
+
+
+
 }

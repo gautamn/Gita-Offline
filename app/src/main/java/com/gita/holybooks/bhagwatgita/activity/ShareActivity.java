@@ -18,9 +18,10 @@ public class ShareActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.shareToolBar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Share the Gita App");
+
 
         if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("Share the Gita App");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

@@ -1,6 +1,7 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,12 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.fragment.ChapterSliderFragment;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 import com.gita.holybooks.bhagwatgita.util.FileUtil;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,5 +190,29 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         public CharSequence getPageTitle(int position) {
             return "Page " + position;
         }
+    }
+
+    Button bookMarkButton;
+    List<String> bookMarkedShlokas;
+    public void bookMarkShloka(View view) {
+        bookMarkButton = (Button) view.findViewById(R.id.bt_bookmark);
+        bookMarkButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
+                bookMarkedShlokas = new ArrayList<>();
+                bookMarkedShlokas.add(tvShlokaNumber.toString());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(bookMarkedShlokas);
+
+                SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
+                editor.putString("bookMarkedShloka", json);
+                editor.commit();
+
+                Toast.makeText(ChapterSlidePagerActivity.this, "Shloka Bookmarked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

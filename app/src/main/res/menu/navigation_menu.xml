@@ -30,10 +30,10 @@
             android:icon="@drawable/ic_share"
             android:title="@string/nav_share" />
 
-        <item
+        <!--<item
             android:id="@+id/nav_images"
             android:icon="@drawable/ic_share"
-            android:title="@string/nav_images" />
+            android:title="@string/nav_images" />-->
 
         <item
             android:id="@+id/nav_rate"

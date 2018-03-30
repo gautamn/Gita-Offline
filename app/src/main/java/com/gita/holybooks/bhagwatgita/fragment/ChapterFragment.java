@@ -2,21 +2,27 @@ package com.gita.holybooks.bhagwatgita.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity;
+import com.gita.holybooks.bhagwatgita.activity.MainActivity;
 import com.gita.holybooks.bhagwatgita.dto.Chapter;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -149,4 +155,6 @@ public class ChapterFragment extends Fragment {
             return chapters.size();
         }
     }
+
+
 }
