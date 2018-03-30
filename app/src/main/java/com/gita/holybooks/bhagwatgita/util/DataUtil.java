@@ -36,4 +36,5 @@ public class DataUtil {
         FileUtil.loadChaptersInMemory(context, R.raw.chapters);
         FileUtil.loadEnglishTransInMemory(context, R.raw.english_translation);
     }
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">bhagwatgita</string>
+    <string name="app_name">Bhagavad Gita</string>
     <string name="openDrawer">Open navigation drawer</string>
     <string name="closeDrawer">Close navigation drawer</string>
     <!--<string name="chapters">Chapters</string>
@@ -46,5 +46,6 @@
     <string name="activity_home_page">HomePageActivity</string>
     <string name="activity_chapters">Chapters</string>
     <string name="title_activity_chapter">ChapterActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

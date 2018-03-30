@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Srimad Bhagavad Gita");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mHandler = new Handler();
         configureNavigationDrawer();
@@ -82,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
         DataUtil.loadMasterDataInMemory(getApplicationContext());
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         return true;
-    }
+    }*/
 
     private void configureNavigationDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -107,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_chapters:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_CHAPTER;
-                        break;
-                        /*startActivity(new Intent(MainActivity.this, ChapterActivity.class));
+                        //break;
+                        startActivity(new Intent(MainActivity.this, ChapterActivity.class));
                         drawerLayout.closeDrawers();
-                        return true;*/
+                        return true;
 
                     case R.id.nav_shloka_of_the_day:
                         navItemIndex = 2;
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 if (getSupportFragmentManager().getFragments() != null) {
                     fragmentTransaction.addToBackStack(CURRENT_TAG);
                 }
-                //fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commitAllowingStateLoss();
                 //fragmentTransaction.commit();
             }

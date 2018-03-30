@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,14 +46,20 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
         tvShlokaText.setText(shlokaText);
         tvTransText.setText(DataUtil.englishTransTextMap.get(currentShlokaId));
 
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.shlokaOfTheDayToolBar);
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         if(getSupportActionBar()!=null){
             getSupportActionBar().setTitle("Shloka of the Day");
-            /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);*/
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) finish();
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void shareContent(View view) {

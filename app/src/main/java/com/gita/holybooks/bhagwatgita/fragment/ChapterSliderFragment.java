@@ -67,13 +67,18 @@ public class ChapterSliderFragment extends Fragment {
         Log.d("ChapterSliderFragment", "currentShlokaId="+currentShlokaId);
         currentShlokaId = (currentShlokaId==null)?"1_1":currentShlokaId;
 
+        String strToRemove = currentShlokaId.replace("_",".");
+
         String shlokaText = DataUtil.shlokaTextMap.get(currentShlokaId);
         Log.d("ChapterSliderFragment", "shlokaText="+shlokaText);
         shlokaText = (shlokaText==null)?"Hello World":shlokaText;
 
         tvShlokaNumber.setText("Chapter "+ chapterNumber+" Shloka "+currentShloka);
+        shlokaText = shlokaText.replace(".."+strToRemove+"..", "");
         tvShlokaText.setText(shlokaText);
-        tvTransText.setText(DataUtil.englishTransTextMap.get(currentShlokaId));
+        String trans = DataUtil.englishTransTextMap.get(currentShlokaId);
+        trans = trans.replace(strToRemove, "");
+        tvTransText.setText(trans);
 
         return view;
     }
