@@ -16,7 +16,7 @@ public class ShareActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
 
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.shareToolBar);
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 

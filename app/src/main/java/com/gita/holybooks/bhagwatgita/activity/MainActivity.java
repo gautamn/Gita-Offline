@@ -65,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Srimad Bhagavad Gita");
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("Srimad Bhagavad Gita");
+        }
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mHandler = new Handler();
         configureNavigationDrawer();
