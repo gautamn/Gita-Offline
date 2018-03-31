@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_BOOKMARK = "bookmark";
     private static final String TAG_SHARE = "share";
     private static final String TAG_RATE = "rate";
+    private static final String TAG_PROGRESS = "progress_report";
 
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -131,6 +132,13 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 5;
                         CURRENT_TAG = TAG_RATE;
                         startActivity(new Intent(MainActivity.this, RateAppActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.nav_progress:
+                        navItemIndex = 6;
+                        CURRENT_TAG = TAG_PROGRESS;
+                        startActivity(new Intent(MainActivity.this, ProgressReportActivity.class));
                         drawerLayout.closeDrawers();
                         return true;
 

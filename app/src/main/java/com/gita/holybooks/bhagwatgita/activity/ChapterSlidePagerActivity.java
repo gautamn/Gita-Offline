@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChapterSlidePagerActivity extends FragmentActivity{
+public class ChapterSlidePagerActivity extends AppCompatActivity{
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -54,18 +54,9 @@ public class ChapterSlidePagerActivity extends FragmentActivity{
                 getShlokaOfChapter(currentShloka.split("_")[0]));
         mPager.setAdapter(mPagerAdapter);
 
-        if (getActionBar() != null)
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         String chapterNumber = currentShloka.split("_")[0];
         String chapterName = ((Chapter)DataUtil.chapters.get(Integer.valueOf(chapterNumber)-1)).getTitle();
 
-        if(getActionBar()!=null){
-            getActionBar().setTitle(chapterName);
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setDisplayShowHomeEnabled(true);
-        }
 
         if (DataUtil.shlokaTextMap.isEmpty())
             FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
@@ -79,9 +70,21 @@ public class ChapterSlidePagerActivity extends FragmentActivity{
             DataUtil.shlokaId = arr[0] + "_" + mPager.getCurrentItem();
         }
 
+
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("Gitaaaaaaa");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+
         //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
         //b.setOnClickListener(this);
-        bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
+        //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
 
     }
 
@@ -123,23 +126,6 @@ public class ChapterSlidePagerActivity extends FragmentActivity{
         startActivity(sendIntent);
     }
 
-   /* @Override
-    public void onClick(View view) {
-
-        int id = view.getId();
-        if(id==R.id.bt_bookmark)
-            Toast.makeText(this, "bookmark", Toast.LENGTH_SHORT).show();
-
-
-        //bookMarkButton = (Button) view.findViewById(R.id.bt_bookmark);
-
-
-    }*/
-
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
         private List<String> shlokaInChapter;
@@ -152,6 +138,31 @@ public class ChapterSlidePagerActivity extends FragmentActivity{
 
         @Override
         public Fragment getItem(int position) {
+
+            /*Save shloka stats for report*/
+            List<String> readShlokasInChapter = new ArrayList<>(DataUtil.SHLOKAS_IN_CHAPTER.length);
+
+            String currentShloka = DataUtil.shlokaId;
+            String[] arr = new String[2];
+            String chapterNumber = arr[0];
+
+            String key = "chapterNumber_" + chapterNumber;
+
+            Gson gson = new Gson();
+            SharedPreferences prefs = getSharedPreferences("USER_PROFILE", MODE_PRIVATE);
+            String restoredText = prefs.getString(key, null);
+            if (restoredText != null) {
+                readShlokasInChapter = gson.fromJson(restoredText, ArrayList.class);
+                if(readShlokasInChapter!=null && !readShlokasInChapter.contains(currentShloka))
+                    readShlokasInChapter.add(currentShloka);
+
+            }
+            String json = gson.toJson(readShlokasInChapter);
+            SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
+            editor.putString(key, json);
+            editor.commit();
+
+
             return ChapterSliderFragment.newInstance("Title", String.valueOf(position));
         }
 

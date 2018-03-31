@@ -22,6 +22,11 @@
             android:id="@+id/nav_bookmark"
             android:icon="@drawable/ic_bookmarks"
             android:title="@string/nav_bookmark" />
+
+        <item
+            android:id="@+id/nav_progress"
+            android:icon="@drawable/ic_action_report"
+            android:title="@string/nav_progress_report" />
     </group>
 
     <group android:checkableBehavior="single" android:id="@+id/second_section">

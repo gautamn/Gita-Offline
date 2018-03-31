@@ -31,6 +31,8 @@ public class DataUtil {
 
     public static final String[] FAVOURITE_SHLOKAS = {"1_1", "11_3", "2_4", "2_1", "2_2", "2_3"};
 
+    public static final int TOTAL_NUMBER_OF_SHLOKAS = 701;
+
     public static void loadMasterDataInMemory(Context context){
         FileUtil.loadShlokaInMemory(context, R.raw.shloka);
         FileUtil.loadChaptersInMemory(context, R.raw.chapters);
