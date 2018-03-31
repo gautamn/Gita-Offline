@@ -1,8 +1,6 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,22 +11,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.fragment.ChapterFragment;
 import com.gita.holybooks.bhagwatgita.fragment.HomeFragment;
-import com.gita.holybooks.bhagwatgita.fragment.ShareAppFragment;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_HOME = "home";
     private static final String TAG_CHAPTER = "chapters";
     private static final String TAG_SHLOKA_OF_THE_DAY = "shloka_of_the_day";
+    private static final String TAG_BOOKMARK = "bookmark";
     private static final String TAG_SHARE = "share";
     private static final String TAG_RATE = "rate";
 
@@ -55,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
-
-    List<String> bookMarkedShlokas;
 
 
     @Override
@@ -123,15 +113,22 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawers();
                         return true;
 
-                    case R.id.nav_share:
+                    case R.id.nav_bookmark:
                         navItemIndex = 3;
+                        CURRENT_TAG = TAG_BOOKMARK;
+                        startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.nav_share:
+                        navItemIndex = 4;
                         CURRENT_TAG = TAG_SHARE;
                         startActivity(new Intent(MainActivity.this, ShareActivity.class));
                         drawerLayout.closeDrawers();
                         return true;
 
                     case R.id.nav_rate:
-                        navItemIndex = 4;
+                        navItemIndex = 5;
                         CURRENT_TAG = TAG_RATE;
                         startActivity(new Intent(MainActivity.this, RateAppActivity.class));
                         drawerLayout.closeDrawers();
@@ -215,10 +212,6 @@ public class MainActivity extends AppCompatActivity {
                 ChapterFragment chapterFragment = new ChapterFragment();
                 return chapterFragment;
 
-            case 3:
-                ShareAppFragment shareAppFragment = new ShareAppFragment();
-                return shareAppFragment;
-
             default:
                 return new HomeFragment();
         }
@@ -245,11 +238,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        final ShareAppFragment fragment = (ShareAppFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE);
+       /* final ShareAppFragment fragment = (ShareAppFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE);
 
         if (fragment != null && fragment.allowBackPressed()) {
             super.onBackPressed();
-        }
+        }*/
 
         super.onBackPressed();
     }
@@ -265,12 +258,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-       /* if (id == R.id.action_logout) {
-            Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-            return true;
-        }*/
-
         // user is in notifications fragment
         // and selected 'Mark all as Read'
         if (id == R.id.action_mark_all_read) {
@@ -285,28 +272,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-   /* Button bookMarkButton;
-    public void bookMarkShloka(View view) {
-        bookMarkButton = (Button) view.findViewById(R.id.bookMarkShloka);
-        bookMarkButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
-                bookMarkedShlokas = new ArrayList<>();
-                bookMarkedShlokas.add(tvShlokaNumber.toString());
-
-                Gson gson = new Gson();
-                String json = gson.toJson(bookMarkedShlokas);
-
-                SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
-                editor.putString("bookMarkedShloka", json);
-                editor.commit();
-
-                Toast.makeText(MainActivity.this, "Shloka Bookmarked", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
 }

@@ -53,6 +53,7 @@
 
         <activity android:name=".activity.ShareActivity" />
         <activity android:name=".activity.RateAppActivity" />
+        <activity android:name=".activity.BookmarkActivity" />
         <activity
             android:name=".activity.ChapterActivity"
             android:label="@string/title_activity_chapter"

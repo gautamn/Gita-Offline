@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChapterSlidePagerActivity extends FragmentActivity {
+public class ChapterSlidePagerActivity extends FragmentActivity{
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -58,7 +58,6 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         String chapterNumber = currentShloka.split("_")[0];
         String chapterName = ((Chapter)DataUtil.chapters.get(Integer.valueOf(chapterNumber)-1)).getTitle();
 
@@ -80,53 +79,10 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
             DataUtil.shlokaId = arr[0] + "_" + mPager.getCurrentItem();
         }
 
-        /*// Attach the page change listener inside the activity
-        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
+        //b.setOnClickListener(this);
+        bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
 
-            int lastPage = 0;
-            int newShlokaId = 0;
-
-            @Override
-            public void onPageSelected(int position) {
-
-                *//*String[] arr = DataUtil.shlokaId.split("_");
-                int numberOfShlokas = DataUtil.SHLOKAS_IN_CHAPTER[Integer.valueOf(arr[0])-1];
-                newShlokaId = Integer.valueOf(arr[1]);
-                if(lastPage > position){
-                    //scrolled left
-                    newShlokaId = position - 1;
-                    if(newShlokaId<1) newShlokaId = 1;
-                }
-                else if(lastPage<position){
-                    //scrolled right
-                    newShlokaId = position + 1;
-
-                    if(newShlokaId>numberOfShlokas)
-                        newShlokaId = numberOfShlokas;
-                }*//*
-*//*
-                Toast.makeText(ChapterSlidePagerActivity.this,"Selected page position: " + position
-                        +" DataUtil.shlokaId:"+DataUtil.shlokaId,
-                        Toast.LENGTH_SHORT).show();*//*
-
-               *//* DataUtil.shlokaId =  arr[0] + "_" + (newShlokaId);
-                lastPage=position;*//*
-            }
-
-            // This method will be invoked when the current page is scrolled
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                *//*Toast.makeText(ChapterSlidePagerActivity.this,
-                        "scrolled Selected page positionOffset: " + position, Toast.LENGTH_SHORT).show();*//*
-            }
-
-            // Called when the scroll state changes:
-            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                //Toast.makeText(ChapterSlidePagerActivity.this,"Selected page  scroll state" , Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     private List<String> getShlokaOfChapter(String chapterId) {
@@ -166,6 +122,19 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
+
+   /* @Override
+    public void onClick(View view) {
+
+        int id = view.getId();
+        if(id==R.id.bt_bookmark)
+            Toast.makeText(this, "bookmark", Toast.LENGTH_SHORT).show();
+
+
+        //bookMarkButton = (Button) view.findViewById(R.id.bt_bookmark);
+
+
+    }*/
 
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
@@ -210,18 +179,22 @@ public class ChapterSlidePagerActivity extends FragmentActivity {
 
             @Override
             public void onClick(View view) {
-                TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
+                String currentShloka=DataUtil.shlokaId;
                 bookMarkedShlokas = new ArrayList<>();
-                bookMarkedShlokas.add(tvShlokaNumber.toString());
-
                 Gson gson = new Gson();
+                SharedPreferences prefs = getSharedPreferences("USER_PROFILE", MODE_PRIVATE);
+                String restoredText = prefs.getString("bookMarkedShloka", null);
+                if (restoredText != null) {
+                    bookMarkedShlokas = gson.fromJson(restoredText, ArrayList.class);
+                    if(bookMarkedShlokas!=null && !bookMarkedShlokas.contains(currentShloka))
+                        bookMarkedShlokas.add(currentShloka);
+                }
                 String json = gson.toJson(bookMarkedShlokas);
-
                 SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
                 editor.putString("bookMarkedShloka", json);
                 editor.commit();
 
-                Toast.makeText(ChapterSlidePagerActivity.this, "Shloka Bookmarked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChapterSlidePagerActivity.this, "Shloka Bookmarked"+json, Toast.LENGTH_SHORT).show();
             }
         });
     }

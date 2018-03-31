@@ -4,36 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gita.holybooks.bhagwatgita.activity.ShlokaOfTheDayActivity">
+    android:orientation="vertical"
+    tools:context="com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <TextView
-        android:id="@+id/shlokaOfTheDayId"
-        android:layout_width="wrap_content"
+        android:id="@+id/shlokaNumber"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@+id/shlokaOfTheDayId"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
 
     <TextView
-        android:id="@+id/shlokaOfTheDayContentId"
-        android:layout_width="wrap_content"
+        android:id="@+id/shlokaText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@+id/shlokaOfTheDayContentId"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@+id/shlokaNumber"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="2dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        android:textStyle="italic" />
+
+
+    <TextView
+        android:id="@+id/shlokaTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shlokaText"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 
     <Button
-        android:id="@+id/shareButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/share"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/shlokaTrans"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
-        android:onClick="shareContent"
-        android:text="Share" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:height="20dp"
+        android:drawableLeft="@drawable/ic_share"
+        android:paddingHorizontal="5dp" />
+
 
 </RelativeLayout>
+

@@ -31,7 +31,7 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
         }
 
         if(shlokaId==null) shlokaId = DataUtil.FAVOURITE_SHLOKAS[2];
-        setContentView(R.layout.chapter_slider_page);
+        setContentView(R.layout.shloka_of_the_day);
 
         TextView tvShlokaNumber=(TextView) findViewById(R.id.shlokaNumber);
         TextView tvShlokaText=(TextView) findViewById(R.id.shlokaText);

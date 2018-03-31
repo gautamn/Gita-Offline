@@ -104,9 +104,6 @@ public class ChapterFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), " clicked!", Toast.LENGTH_SHORT)
-                            .show();
-
                     String shlokaId = mChapter.getChapterNumber()+"_1";
                     DataUtil.shlokaId = shlokaId;
                     Intent intent = new Intent(getActivity().getApplication(), ChapterSlidePagerActivity.class);
