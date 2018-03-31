@@ -9,6 +9,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 
 import com.gita.holybooks.bhagwatgita.R;
@@ -22,6 +24,17 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("Settings");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
 
         switchCompat=(SwitchCompat)findViewById(R.id.notifications);
 
@@ -41,6 +54,14 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+            finish();
+
+        return super.onOptionsItemSelected(item);
     }
 
 

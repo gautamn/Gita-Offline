@@ -144,7 +144,7 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
 
             String currentShloka = DataUtil.shlokaId;
             String[] arr = new String[2];
-            String chapterNumber = arr[0];
+            String chapterNumber = "1";//arr[0];
 
             String key = "chapterNumber_" + chapterNumber;
 
@@ -160,7 +160,9 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
             String json = gson.toJson(readShlokasInChapter);
             SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
             editor.putString(key, json);
-            editor.commit();
+            editor.apply();
+
+            Toast.makeText(ChapterSlidePagerActivity.this, "Added shloka"+json+" to key="+key, Toast.LENGTH_SHORT).show();
 
 
             return ChapterSliderFragment.newInstance("Title", String.valueOf(position));

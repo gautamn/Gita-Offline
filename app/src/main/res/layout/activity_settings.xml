@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     tools:context="com.gita.holybooks.bhagwatgita.activity.SettingsActivity">
 
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/notifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:checked="false"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="30dp"
+        android:checked="true"
         android:text="Allow Notifications"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/nightMode"
@@ -27,7 +31,10 @@
         android:layout_centerInParent="true"
         android:checked="false"
         android:text="Switch to nightMode"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:visibility="visible" />
+        android:layout_below="@+id/notifications"
+        android:layout_marginTop="30dp"
+        android:visibility="visible"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 
-</LinearLayout>
+</RelativeLayout>
