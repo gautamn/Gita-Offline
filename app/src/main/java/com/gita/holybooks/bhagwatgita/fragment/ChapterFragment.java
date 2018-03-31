@@ -114,9 +114,9 @@ public class ChapterFragment extends Fragment {
 
         public void bindData(Chapter chapter) {
             mChapter = chapter;
-            mChapterNumberView.setText("Chapter "+chapter.getChapterNumber());
-            mChapterTitleView.setText(chapter.getTitle());
-            mChapterDescView.setText(chapter.getDescription());
+            mChapterNumberView.setText("Chapter "+chapter.getChapterNumber().trim());
+            mChapterTitleView.setText(chapter.getTitle().trim());
+            mChapterDescView.setText(chapter.getDescription().trim());
         }
     }
 

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,17 +47,26 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter_slide_pager);
 
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         String currentShloka = DataUtil.shlokaId;
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
-                currentShloka.split("_")[0],
-                getShlokaOfChapter(currentShloka.split("_")[0]));
-        mPager.setAdapter(mPagerAdapter);
 
         String chapterNumber = currentShloka.split("_")[0];
         String chapterName = ((Chapter)DataUtil.chapters.get(Integer.valueOf(chapterNumber)-1)).getTitle();
 
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle(chapterName);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = (ViewPager) findViewById(R.id.pager);
+
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
+                currentShloka.split("_")[0],
+                getShlokaOfChapter(currentShloka.split("_")[0]));
+        mPager.setAdapter(mPagerAdapter);
 
         if (DataUtil.shlokaTextMap.isEmpty())
             FileUtil.loadShlokaInMemory(getApplicationContext(), R.raw.shloka);
@@ -71,21 +81,20 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
         }
 
 
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-        if(getSupportActionBar()!=null){
-            getSupportActionBar().setTitle("Gitaaaaaaa");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
 
         //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
         //b.setOnClickListener(this);
         //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+            finish();
+
+        return super.onOptionsItemSelected(item);
     }
 
     private List<String> getShlokaOfChapter(String chapterId) {
@@ -162,7 +171,7 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
             editor.putString(key, json);
             editor.apply();
 
-            Toast.makeText(ChapterSlidePagerActivity.this, "Added shloka"+json+" to key="+key, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ChapterSlidePagerActivity.this, "Added shloka"+json+" to key="+key, Toast.LENGTH_SHORT).show();
 
 
             return ChapterSliderFragment.newInstance("Title", String.valueOf(position));

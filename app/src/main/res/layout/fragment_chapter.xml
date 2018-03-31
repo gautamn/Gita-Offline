@@ -7,9 +7,12 @@
     <TextView
         android:id="@+id/chapter_id"
         android:paddingTop="2dp"
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:gravity="left"
+        android:textAlignment="gravity"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
@@ -28,6 +31,9 @@
     <TextView
         android:id="@+id/chapter_description"
         android:paddingTop="20dp"
+        android:paddingLeft="5dp"
+        android:gravity="left"
+        android:textAlignment="gravity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"

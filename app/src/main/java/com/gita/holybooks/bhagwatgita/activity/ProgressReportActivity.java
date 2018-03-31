@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
@@ -44,7 +46,8 @@ public class ProgressReportActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        pieChart = (PieChart) findViewById(R.id.progress_chart);
+        //pieChart = (PieChart) findViewById(R.id.progress_chart);
+        pieChart = new PieChart(getApplicationContext());
         entries = new ArrayList<>();
         PieEntryLabels = new ArrayList<String>();
 
@@ -52,8 +55,8 @@ public class ProgressReportActivity extends AppCompatActivity {
         entries.add(new BarEntry(2f, 0));
         entries.add(new BarEntry(4f, 1));
 
-        PieEntryLabels.add("January");
-        PieEntryLabels.add("February");
+        PieEntryLabels.add("READ");
+        PieEntryLabels.add("LEFT");
 
 
         pieDataSet = new PieDataSet(entries, "");
@@ -62,6 +65,14 @@ public class ProgressReportActivity extends AppCompatActivity {
         pieChart.setData(pieData);
         pieChart.setDescription(findReadShlokas()+"/ "+DataUtil.TOTAL_NUMBER_OF_SHLOKAS+" read shlokas");
         pieChart.animateY(500);
+
+        // get a layout defined in xml
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_progress_report);
+        rl.addView(
+                pieChart,
+                new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+        //rl.add((View)pieChart); // add the programmatically created chart
     }
 
     private int findReadShlokas(){
