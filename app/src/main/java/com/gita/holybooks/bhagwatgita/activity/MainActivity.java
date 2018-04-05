@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
     private static final String TAG_CHAPTER = "chapters";
-    private static final String TAG_SHLOKA_OF_THE_DAY = "shloka_of_the_day";
+    private static final String TAG_SHLOKA_OF_THE_DAY = "activity_shloka_of_the_day";
     private static final String TAG_BOOKMARK = "bookmark";
     private static final String TAG_SHARE = "share";
     private static final String TAG_RATE = "rate";

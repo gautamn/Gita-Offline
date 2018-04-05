@@ -2,13 +2,16 @@ package com.gita.holybooks.bhagwatgita.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
@@ -25,11 +28,16 @@ import java.util.List;
 
 public class ProgressReportActivity extends AppCompatActivity {
 
-    PieChart pieChart ;
+
     ArrayList<Entry> entries ;
     ArrayList<String> PieEntryLabels ;
     PieDataSet pieDataSet ;
     PieData pieData ;
+
+    private FrameLayout chartLayout;
+    private PieChart pieChart ;
+    private RelativeLayout shlokaStatsLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +54,10 @@ public class ProgressReportActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        //pieChart = (PieChart) findViewById(R.id.progress_chart);
-        pieChart = new PieChart(getApplicationContext());
+        chartLayout = (FrameLayout) findViewById(R.id.chart_layout);
+        pieChart = new PieChart(this);
         entries = new ArrayList<>();
         PieEntryLabels = new ArrayList<String>();
-
 
         entries.add(new BarEntry(2f, 0));
         entries.add(new BarEntry(4f, 1));
@@ -58,21 +65,55 @@ public class ProgressReportActivity extends AppCompatActivity {
         PieEntryLabels.add("READ");
         PieEntryLabels.add("LEFT");
 
-
         pieDataSet = new PieDataSet(entries, "");
         pieData = new PieData(PieEntryLabels, pieDataSet);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieChart.setData(pieData);
         pieChart.setDescription(findReadShlokas()+"/ "+DataUtil.TOTAL_NUMBER_OF_SHLOKAS+" read shlokas");
+        pieChart.setDescriptionTextSize(16f);
+        pieChart.setDescriptionPosition( 750, 750);
         pieChart.animateY(500);
+        pieChart.setRotationEnabled(false);
 
-        // get a layout defined in xml
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_progress_report);
-        rl.addView(
-                pieChart,
-                new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
-        //rl.add((View)pieChart); // add the programmatically created chart
+        chartLayout.addView(pieChart);
+        chartLayout.setMinimumHeight(800);
+        chartLayout.setBackgroundColor(Color.LTGRAY);
+
+        ViewGroup.LayoutParams lp = pieChart.getLayoutParams();
+        lp.height=800;
+        pieChart.setLayoutParams(lp);
+
+
+        //RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.shloka_stats_layout);//new RelativeLayout(this);
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+        RelativeLayout.LayoutParams reLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        reLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        for(int i=1; i<=12; i++){
+
+            TextView tv = new TextView(this);
+            tv.setId(i);
+            tv.setText("Test");
+
+            // Defining the layout parameters of the TextView
+            RelativeLayout.LayoutParams tvlp = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            tvlp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            tvlp.addRule(RelativeLayout.ALIGN_BOTTOM);
+
+            // Setting the parameters on the TextView
+            tv.setLayoutParams(lp);
+
+            // Adding the TextView to the RelativeLayout as a child
+            relativeLayout.addView(tv);
+        }
+
+
+        //setContentView(relativeLayout, reLayoutParams);
+        chartLayout.addView(relativeLayout);
+
     }
 
     private int findReadShlokas(){

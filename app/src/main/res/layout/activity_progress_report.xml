@@ -11,28 +11,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <FrameLayout
+        android:id="@+id/chart_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/toolbar"
+        />
 
-    <com.github.mikephil.charting.charts.PieChart
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is a test"
+        android:layout_below="@+id/chart_layout"/>
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is a test"
+        android:layout_below="@+id/t1"/>
+
+    <TextView
+        android:id="@+id/t3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is a test"
+        android:layout_below="@+id/t2"/>
+
+    <!--<com.github.mikephil.charting.charts.PieChart
         android:id="@+id/progress_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"/>-->
 
    <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-
-
     </RelativeLayout>-->
 
-   <!-- <TextView
+    <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="This is a test"/>
--->
+     -->
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shloka_stats_layout"
+        />-->
+   <!--<TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is a test"
+       android:layout_below="@+id/chart_layout"/>-->
 
 
 </RelativeLayout>

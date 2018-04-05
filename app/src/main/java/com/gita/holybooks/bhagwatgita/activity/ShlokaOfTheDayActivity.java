@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
@@ -31,20 +30,24 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
         }
 
         if(shlokaId==null) shlokaId = DataUtil.FAVOURITE_SHLOKAS[2];
-        setContentView(R.layout.shloka_of_the_day);
+        setContentView(R.layout.activity_shloka_of_the_day);
 
         TextView tvShlokaNumber=(TextView) findViewById(R.id.shlokaNumber);
         TextView tvShlokaText=(TextView) findViewById(R.id.shlokaText);
         TextView tvTransText=(TextView) findViewById(R.id.shlokaTrans);
 
-        currentShlokaId = shlokaId;;
+        currentShlokaId = shlokaId;
+        String strToRemove = currentShlokaId.replace("_",".");
         String shlokaText = DataUtil.shlokaTextMap.get(currentShlokaId);
         shlokaText = (shlokaText==null)?"Hello World":shlokaText;
+        shlokaText = shlokaText.replace(".."+strToRemove+"..", "");
+        String trans = DataUtil.englishTransTextMap.get(currentShlokaId);
+        trans = trans.replace(strToRemove, "");
 
         String[] arr = currentShlokaId.split("_");
         tvShlokaNumber.setText("Chapter "+ arr[0]+" Shloka "+arr[1]);
         tvShlokaText.setText(shlokaText);
-        tvTransText.setText(DataUtil.englishTransTextMap.get(currentShlokaId));
+        tvTransText.setText(trans);
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

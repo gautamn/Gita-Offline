@@ -8,7 +8,6 @@
     tools:context="com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity">
 
     <include
-        android:id="@+id/include"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
