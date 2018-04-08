@@ -71,7 +71,7 @@
 
 
         <Button
-            android:id="@+id/share"
+            android:id="@+id/bt_share"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/shlokaTrans"
@@ -92,7 +92,6 @@
             android:layout_toRightOf="@+id/share"
             android:height="20dp"
             android:drawableLeft="@drawable/ic_bookmarks"
-            android:onClick="bookMarkShloka"
             android:paddingHorizontal="5dp"
             android:clickable="true"
             />

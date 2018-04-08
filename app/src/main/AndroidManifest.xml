@@ -48,9 +48,6 @@
             android:name=".activity.ChapterActivity"
             android:label="@string/title_activity_chapter"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.SettingsActivity2"
-            android:label="@string/title_activity_settings2"></activity>
     </application>
 
 </manifest>

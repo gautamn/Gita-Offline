@@ -141,6 +141,8 @@ public class ChapterFragment extends Fragment {
 
         }
 
+
+
         @Override
         public int getItemCount() {
             return chapters.size();

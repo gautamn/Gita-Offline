@@ -9,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -83,37 +85,22 @@ public class ProgressReportActivity extends AppCompatActivity {
         lp.height=800;
         pieChart.setLayoutParams(lp);
 
+        List<String> tmpList = new ArrayList<>(18);
 
-        //RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.shloka_stats_layout);//new RelativeLayout(this);
-        RelativeLayout relativeLayout = new RelativeLayout(this);
-        RelativeLayout.LayoutParams reLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        reLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+       for(int i=0;i<18;i++){
 
-        for(int i=1; i<=12; i++){
+           tmpList.add("This is a test.         "+"12/25");
 
-            TextView tv = new TextView(this);
-            tv.setId(i);
-            tv.setText("Test");
+       }
 
-            // Defining the layout parameters of the TextView
-            RelativeLayout.LayoutParams tvlp = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            tvlp.addRule(RelativeLayout.CENTER_IN_PARENT);
-            tvlp.addRule(RelativeLayout.ALIGN_BOTTOM);
-
-            // Setting the parameters on the TextView
-            tv.setLayoutParams(lp);
-
-            // Adding the TextView to the RelativeLayout as a child
-            relativeLayout.addView(tv);
-        }
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                R.layout.layout_list_view_chapter_progress, tmpList.toArray(new String[0]));
 
 
-        //setContentView(relativeLayout, reLayoutParams);
-        chartLayout.addView(relativeLayout);
 
+
+        ListView listView = (ListView) findViewById(R.id.chapter_progress_list);
+        listView.setAdapter(adapter);
     }
 
     private int findReadShlokas(){

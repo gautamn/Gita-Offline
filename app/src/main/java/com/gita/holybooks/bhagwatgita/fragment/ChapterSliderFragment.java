@@ -1,6 +1,7 @@
 package com.gita.holybooks.bhagwatgita.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,21 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity;
+import com.gita.holybooks.bhagwatgita.dto.Chapter;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ChapterSliderFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ChapterSliderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChapterSliderFragment extends Fragment {
 
     private String title;
@@ -35,7 +32,8 @@ public class ChapterSliderFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ChapterSliderFragment() {}
+    public ChapterSliderFragment() {
+    }
 
     public static ChapterSliderFragment newInstance(String title, String position) {
         ChapterSliderFragment fragment = new ChapterSliderFragment();
@@ -55,39 +53,92 @@ public class ChapterSliderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.chapter_slider_page, container, false);
-        TextView tvShlokaNumber=(TextView) view.findViewById(R.id.shlokaNumber);
-        TextView tvShlokaText=(TextView) view.findViewById(R.id.shlokaText);
-        TextView tvTransText=(TextView) view.findViewById(R.id.shlokaTrans);
+        TextView tvShlokaNumber = (TextView) view.findViewById(R.id.shlokaNumber);
+        TextView tvShlokaText = (TextView) view.findViewById(R.id.shlokaText);
+        TextView tvTransText = (TextView) view.findViewById(R.id.shlokaTrans);
 
-        int currentShloka = Integer.parseInt(position)+1;
+        int currentShloka = Integer.parseInt(position) + 1;
         String[] arr = DataUtil.shlokaId.split("_");
         int chapterNumber = Integer.parseInt(arr[0]);
         String currentShlokaId = chapterNumber + "_" + currentShloka;
         DataUtil.shlokaId = chapterNumber + "_" + (currentShloka);
-        Log.d("ChapterSliderFragment", "currentShlokaId="+currentShlokaId);
-        currentShlokaId = (currentShlokaId==null)?"1_1":currentShlokaId;
+        Log.d("ChapterSliderFragment", "currentShlokaId=" + currentShlokaId);
+        currentShlokaId = (currentShlokaId == null) ? "1_1" : currentShlokaId;
 
-        String strToRemove = currentShlokaId.replace("_",".");
+        String strToRemove = currentShlokaId.replace("_", ".");
 
         String shlokaText = DataUtil.shlokaTextMap.get(currentShlokaId);
-        Log.d("ChapterSliderFragment", "shlokaText="+shlokaText);
-        shlokaText = (shlokaText==null)?"Hello World":shlokaText;
+        Log.d("ChapterSliderFragment", "shlokaText=" + shlokaText);
+        shlokaText = (shlokaText == null) ? "Hello World" : shlokaText;
 
-        tvShlokaNumber.setText("Chapter "+ chapterNumber+" Shloka "+currentShloka);
-        shlokaText = shlokaText.replace(".."+strToRemove+"..", "");
+        tvShlokaNumber.setText("Chapter " + chapterNumber + " Shloka " + currentShloka);
+        shlokaText = shlokaText.replace(".." + strToRemove + "..", "");
         tvShlokaText.setText(shlokaText);
         String trans = DataUtil.englishTransTextMap.get(currentShlokaId);
         trans = trans.replace(strToRemove, "");
         tvTransText.setText(trans);
 
+
+        Button bt = view.findViewById(R.id.bt_bookmark);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String currentShloka = DataUtil.shlokaId;
+                List<String> bookMarkedShlokas = new ArrayList<>();
+                Gson gson = new Gson();
+                SharedPreferences prefs = getActivity().getSharedPreferences("USER_PROFILE", Context.MODE_PRIVATE);
+                String restoredText = prefs.getString("bookMarkedShloka", null);
+                if (restoredText != null) {
+                    bookMarkedShlokas = gson.fromJson(restoredText, ArrayList.class);
+                    if (bookMarkedShlokas != null && !bookMarkedShlokas.contains(currentShloka))
+                        bookMarkedShlokas.add(currentShloka);
+                }
+                String json = gson.toJson(bookMarkedShlokas);
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("USER_PROFILE", Context.MODE_PRIVATE).edit();
+                editor.putString("bookMarkedShloka", json);
+                editor.commit();
+                Toast.makeText(getActivity(), "Bookmarks:" + json, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        Button shareBtn = view.findViewById(R.id.bt_share);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String currentShloka = DataUtil.shlokaId;
+                String[] arr = currentShloka.split("_");
+
+                String lastShloka = arr[0]+"_"+(Integer.valueOf(arr[1])-1);
+                StringBuffer sb = new StringBuffer();
+                String chapterName = DataUtil.chapters.get(Integer.valueOf(arr[0])).getTitle();
+                sb.append("Chapter "+arr[0]+" Shloka -- " + (Integer.valueOf(arr[1])-1)+" "+chapterName);
+                sb.append("\n\n");
+                sb.append(DataUtil.shlokaTextMap.get(lastShloka));
+                sb.append("\n");
+                sb.append(DataUtil.englishTransTextMap.get(lastShloka));
+                sb.append("\n\n");
+                sb.append("Shared via --- Srimad Bhagawad Gita");
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+            }
+        });
+
+
         return view;
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -106,30 +157,8 @@ public class ChapterSliderFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-    /*private String getNextShlokaId(String finalCurrentShlokaId) {
-
-        String[] arr = finalCurrentShlokaId.split("_");
-        return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
-    }
-
-    private String getPreviousShlokaId(String finalCurrentShlokaId) {
-
-        String[] arr = finalCurrentShlokaId.split("_");
-        return arr[0]+"_"+(Integer.valueOf(arr[1])+1);
-    }*/
 }

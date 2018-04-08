@@ -80,13 +80,6 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
             DataUtil.shlokaId = arr[0] + "_" + mPager.getCurrentItem();
         }
 
-
-
-
-        //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
-        //b.setOnClickListener(this);
-        //bookMarkButton = (Button) findViewById(R.id.bt_bookmark);
-
     }
 
     @Override
@@ -193,31 +186,5 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
         }
     }
 
-    Button bookMarkButton;
-    List<String> bookMarkedShlokas;
-    public void bookMarkShloka(View view) {
-        bookMarkButton = (Button) view.findViewById(R.id.bt_bookmark);
-        bookMarkButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                String currentShloka=DataUtil.shlokaId;
-                bookMarkedShlokas = new ArrayList<>();
-                Gson gson = new Gson();
-                SharedPreferences prefs = getSharedPreferences("USER_PROFILE", MODE_PRIVATE);
-                String restoredText = prefs.getString("bookMarkedShloka", null);
-                if (restoredText != null) {
-                    bookMarkedShlokas = gson.fromJson(restoredText, ArrayList.class);
-                    if(bookMarkedShlokas!=null && !bookMarkedShlokas.contains(currentShloka))
-                        bookMarkedShlokas.add(currentShloka);
-                }
-                String json = gson.toJson(bookMarkedShlokas);
-                SharedPreferences.Editor editor = getSharedPreferences("USER_PROFILE", MODE_PRIVATE).edit();
-                editor.putString("bookMarkedShloka", json);
-                editor.commit();
-
-                Toast.makeText(ChapterSlidePagerActivity.this, "Shloka Bookmarked"+json, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
