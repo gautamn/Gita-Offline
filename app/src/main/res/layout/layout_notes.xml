@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/editNote"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:hint="Enter comments(Optional)"
+        android:inputType="textMultiLine"
+        android:lines="20"
+        android:maxLines="3"
+        android:minLines="6"
+        android:scrollbars="vertical" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <ImageView
+        android:id="@+id/bt_delete"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editNote"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_action_delete" />
+
+    <ImageView
+        android:id="@+id/bt_copy"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editNote"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/bt_delete"
+        android:src="@drawable/ic_action_copy" />
+
+
+    <ImageView
+        android:id="@+id/bt_share"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editNote"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/bt_copy"
+        android:src="@drawable/ic_share" />
+
+</RelativeLayout>

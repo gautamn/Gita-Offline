@@ -1,26 +1,19 @@
 package com.gita.holybooks.bhagwatgita.activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.dto.Bookmark;
 import com.gita.holybooks.bhagwatgita.service.DatabaseService;
-import com.gita.holybooks.bhagwatgita.util.DataUtil;
-import com.gita.holybooks.bhagwatgita.util.SharedPreferenceUtil;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +37,7 @@ public class BookmarkActivity extends AppCompatActivity {
         bookmarks = databaseService.getBookmarks();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new BookmarkAdapter(bookmarks);
+        mAdapter = new BookmarkAdapter(bookmarks, getApplicationContext(), databaseService);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -67,5 +60,4 @@ public class BookmarkActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
 }
