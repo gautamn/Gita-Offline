@@ -43,7 +43,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
             title = (TextView) view.findViewById(R.id.title);
             shlokaText = (TextView) view.findViewById(R.id.shlokaText);
 
-
             ImageView delBtn = (ImageView) view.findViewById(R.id.bt_delete);
             delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,7 +80,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
                     sendIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
                     sendIntent.setType("text/plain");
                     context.startActivity(sendIntent);
-
                 }
             });
 
@@ -110,14 +108,9 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(context, "Text View Copied to Clipboard",
                             Toast.LENGTH_SHORT).show();
-
                 }
             });
-
-
         }
-
-
 
         public void bindData(Bookmark bookmark) {
             mBookmark = bookmark;

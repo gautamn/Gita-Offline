@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 
+import java.util.Random;
+
 public class ShlokaOfTheDayActivity extends AppCompatActivity {
 
     String shlokaId = null;
@@ -29,7 +31,10 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
             currentShlokaId = extras.getString("shloka_id");
         }
 
-        if(shlokaId==null) shlokaId = DataUtil.FAVOURITE_SHLOKAS[2];
+        if(shlokaId==null){
+            int randomIndex = getRandomIndex(0, DataUtil.FAVOURITE_SHLOKAS.length);
+            shlokaId = DataUtil.FAVOURITE_SHLOKAS[randomIndex];
+        }
         setContentView(R.layout.activity_shloka_of_the_day);
 
         TextView tvShlokaNumber=(TextView) findViewById(R.id.shlokaNumber);
@@ -45,9 +50,11 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
         trans = trans.replace(strToRemove, "");
 
         String[] arr = currentShlokaId.split("_");
-        tvShlokaNumber.setText("Chapter "+ arr[0]+" Shloka "+arr[1]);
-        tvShlokaText.setText(shlokaText);
-        tvTransText.setText(trans);
+        int chapterNumber = Integer.valueOf(arr[0]);
+        String tmpShloka = currentShlokaId.replace("_", ":");
+        tvShlokaNumber.setText(DataUtil.chapters.get(chapterNumber-1).getTitle() + " " +tmpShloka);
+        tvShlokaText.setText(shlokaText.trim());
+        tvTransText.setText(trans.trim());
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,5 +82,11 @@ public class ShlokaOfTheDayActivity extends AppCompatActivity {
             startActivity(sendIntent);
         }
 
+    }
+
+    private int getRandomIndex(int min, int max){
+        Random rand = new Random();
+        int  n = rand.nextInt(max) + min;
+        return n;
     }
 }

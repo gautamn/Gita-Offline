@@ -94,7 +94,7 @@ public class ChapterSliderFragment extends Fragment {
         tvTransText.setText(trans);
 
 
-        Button bt = view.findViewById(R.id.bt_bookmark);
+        ImageView bt = (ImageView) view.findViewById(R.id.bt_image);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,8 +108,7 @@ public class ChapterSliderFragment extends Fragment {
             }
         });
 
-
-        Button shareBtn = view.findViewById(R.id.bt_share);
+        ImageView shareBtn = (ImageView) view.findViewById(R.id.bt_share);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +137,7 @@ public class ChapterSliderFragment extends Fragment {
         });
 
 
-        Button copyBtn = view.findViewById(R.id.bt_copy);
+        ImageView copyBtn = (ImageView) view.findViewById(R.id.bt_copy);
         copyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

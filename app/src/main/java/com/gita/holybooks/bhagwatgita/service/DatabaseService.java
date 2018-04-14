@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.gita.holybooks.bhagwatgita.dao.DataBaseHelper;
 import com.gita.holybooks.bhagwatgita.dto.Bookmark;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
+import com.gita.holybooks.bhagwatgita.util.GitaUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class DatabaseService {
                 bookmark.setBookmarkId(bookmarkId);
                 bookmark.setShlokaId(shlokaId);
                 bookmark.setTitle(title);
-                bookmark.setShlokaText(DataUtil.englishTransTextMap.get(shlokaId));
+                bookmark.setShlokaText(GitaUtil.cleanShlokaText(shlokaId));
                 bookmarks.add(bookmark);
             }
         }
