@@ -1,6 +1,7 @@
 package com.gita.holybooks.bhagwatgita.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -25,6 +26,7 @@ import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity;
 import com.gita.holybooks.bhagwatgita.dao.DataBaseHelper;
 import com.gita.holybooks.bhagwatgita.dto.Chapter;
+import com.gita.holybooks.bhagwatgita.service.DatabaseService;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 import com.gita.holybooks.bhagwatgita.util.SharedPreferenceUtil;
 import com.google.gson.Gson;
@@ -42,6 +44,8 @@ public class ChapterSliderFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     DataBaseHelper dataBaseHelper;
+    DataBaseHelper noteDataBaseHelper;
+    DatabaseService databaseService;
 
     public ChapterSliderFragment() {
     }
@@ -62,6 +66,8 @@ public class ChapterSliderFragment extends Fragment {
         title = getArguments().getString("title", "This is default title");
         position = getArguments().getString("position", "0");
         dataBaseHelper = new DataBaseHelper(this.getActivity());
+        noteDataBaseHelper = new DataBaseHelper(this.getActivity());
+        databaseService = new DatabaseService(this.getActivity());
     }
 
     @Override
@@ -93,6 +99,35 @@ public class ChapterSliderFragment extends Fragment {
         trans = trans.replace(strToRemove, "");
         tvTransText.setText(trans);
 
+        ImageView noteBtn = (ImageView) view.findViewById(R.id.bt_note);
+        noteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // custom dialog
+                final Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.layout_notes);
+                /*EditText editText = (EditText)view.findViewById(R.id.editNote);
+                editText.setText(DataUtil.shlokaId, TextView.BufferType.EDITABLE);*/
+
+                ImageView saveBtn = (ImageView) dialog.findViewById(R.id.bt_save);
+                // if button is clicked, close the custom dialog
+                saveBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText editText = (EditText) v.findViewById(R.id.editNote);
+                        String text = "This is note";
+                        dialog.dismiss();
+
+                        databaseService.insertNote(DataUtil.shlokaId, text);
+
+                        Toast.makeText(getContext(), "Note saved!!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
 
         ImageView bt = (ImageView) view.findViewById(R.id.bt_image);
         bt.setOnClickListener(new View.OnClickListener() {

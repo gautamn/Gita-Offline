@@ -77,7 +77,6 @@
                     android:text="53 down vote favorite 8 I am using RecyclerView with GridLayoutManager and I have each item as CardView."
                     android:textSize="15sp" />
 
-
                 <ImageView
                     android:id="@+id/bt_share"
                     android:layout_width="25dp"
@@ -111,6 +110,17 @@
                     android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@+id/bt_copy"
                     android:src="@drawable/ic_action_image" />
+
+                <ImageView
+                    android:id="@+id/bt_note"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shlokaText"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@+id/bt_image"
+                    android:src="@drawable/ic_action_note" />
 
 
             </RelativeLayout>

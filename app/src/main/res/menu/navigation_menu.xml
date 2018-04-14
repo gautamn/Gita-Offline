@@ -7,7 +7,9 @@
         android:layout_height="200dp"
         android:background="@drawable/ic_drawer" />
 
-    <group android:checkableBehavior="single" android:id="@+id/first_section">
+    <group
+        android:id="@+id/first_section"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_chapters"
             android:icon="@drawable/ic_chapters"
@@ -19,26 +21,42 @@
             android:title="@string/nav_shloka_of_the_day" />
 
         <item
+            android:id="@+id/nav_progress"
+            android:icon="@drawable/ic_action_report"
+            android:title="@string/nav_progress_report" />
+
+
+    </group>
+
+    <group
+        android:id="@+id/second_section"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_images"
+            android:icon="@drawable/ic_action_image"
+            android:title="@string/nav_images" />
+
+        <item
             android:id="@+id/nav_bookmark"
             android:icon="@drawable/ic_bookmarks"
             android:title="@string/nav_bookmark" />
 
         <item
-            android:id="@+id/nav_progress"
-            android:icon="@drawable/ic_action_report"
-            android:title="@string/nav_progress_report" />
-    </group>
+            android:id="@+id/nav_note"
+            android:icon="@drawable/ic_action_note"
+            android:title="@string/nav_notes" />
 
-    <group android:checkableBehavior="single" android:id="@+id/second_section">
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share"
             android:title="@string/nav_share" />
 
-        <!--<item
-            android:id="@+id/nav_images"
-            android:icon="@drawable/ic_share"
-            android:title="@string/nav_images" />-->
+    </group>
+
+    <group
+        android:id="@+id/third_section"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_rate"
@@ -48,18 +66,15 @@
             android:id="@+id/nav_ads_free"
             android:icon="@drawable/ic_ads_free"
             android:title="@string/nav_ads_free" />
-    </group>
 
-    <group android:checkableBehavior="single" android:id="@+id/third_section">
-
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings"
-                android:title="@string/nav_settings" />
-            <item
-                android:id="@+id/nav_help"
-                android:icon="@drawable/ic_help"
-                android:title="@string/nav_help" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/nav_settings" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help"
+            android:title="@string/nav_help" />
 
     </group>
 

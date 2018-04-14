@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_CHAPTER = "chapters";
     private static final String TAG_SHLOKA_OF_THE_DAY = "activity_shloka_of_the_day";
     private static final String TAG_BOOKMARK = "bookmark";
+    private static final String TAG_NOTE = "note";
     private static final String TAG_SHARE = "share";
     private static final String TAG_RATE = "rate";
     private static final String TAG_PROGRESS = "progress_report";
@@ -151,6 +152,14 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                         drawerLayout.closeDrawers();
                         return true;
+
+                    case R.id.nav_note:
+                        navItemIndex = 7;
+                        CURRENT_TAG = TAG_NOTE;
+                        startActivity(new Intent(MainActivity.this, NoteActivity.class));
+                        drawerLayout.closeDrawers();
+                        return true;
+
                     default:
                         navItemIndex = 0;
                 }
