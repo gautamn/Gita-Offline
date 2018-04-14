@@ -96,6 +96,21 @@
             android:clickable="true"
             />
 
+        <Button
+            android:id="@+id/bt_copy"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bt_share"
+            android:layout_alignBottom="@+id/bt_share"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_toLeftOf="@+id/bt_share"
+            android:layout_toStartOf="@+id/bt_share"
+            android:height="20dp"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_bookmarks"
+            android:paddingHorizontal="5dp" />
+
 
     </RelativeLayout>
 

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,7 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.dto.Bookmark;
+import com.gita.holybooks.bhagwatgita.service.DatabaseService;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
+import com.gita.holybooks.bhagwatgita.util.SharedPreferenceUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -21,7 +27,10 @@ import java.util.List;
 
 public class BookmarkActivity extends AppCompatActivity {
 
-    List<String> bookMarkedShlokas;
+    DatabaseService databaseService;
+    private RecyclerView recyclerView;
+    private BookmarkAdapter mAdapter;
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,33 +40,21 @@ public class BookmarkActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setToolbar(toolbar, "List Of Bookmarks");
 
-        Gson gson = new Gson();
-        SharedPreferences prefs = getSharedPreferences("USER_PROFILE", MODE_PRIVATE);
-        String restoredText = prefs.getString("bookMarkedShloka", null);
-        if (restoredText != null) {
-            bookMarkedShlokas = gson.fromJson(restoredText, ArrayList.class);
-        }
+        databaseService = new DatabaseService(this);
+        bookmarks = databaseService.getBookmarks();
 
-        List<String> tmpList = new ArrayList<>(bookMarkedShlokas.size());
-        for (String bookmark: bookMarkedShlokas) {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mAdapter = new BookmarkAdapter(bookmarks);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
 
-            String[] arr = bookmark.split("_");
-            StringBuilder sb = new StringBuilder();
-            sb.append("Chapter ").append(arr[0]).append(" Shloka ").append(arr[1]);
-            tmpList.add(sb.toString());
-
-        }
-
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                R.layout.layout_list_view_bookmark, tmpList.toArray(new String[0]));
-
-        ListView listView = (ListView) findViewById(R.id.bookmark_list);
-        listView.setAdapter(adapter);
     }
 
     private void setToolbar(Toolbar toolbar, String title) {
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -66,7 +63,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) finish();
+        if (item.getItemId() == android.R.id.home) finish();
         return super.onOptionsItemSelected(item);
 
     }

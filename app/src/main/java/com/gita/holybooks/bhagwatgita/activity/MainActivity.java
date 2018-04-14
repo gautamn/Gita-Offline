@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.dao.DataBaseHelper;
 import com.gita.holybooks.bhagwatgita.fragment.ChapterFragment;
 import com.gita.holybooks.bhagwatgita.fragment.HomeFragment;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    DataBaseHelper gitaDB;
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             loadHomeFragment();
         }
         DataUtil.loadMasterDataInMemory(getApplicationContext());
+
+        gitaDB = new DataBaseHelper(this);
     }
 
    /* @Override

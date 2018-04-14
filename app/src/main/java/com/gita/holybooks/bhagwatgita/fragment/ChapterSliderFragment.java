@@ -1,5 +1,7 @@
 package com.gita.holybooks.bhagwatgita.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +18,10 @@ import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.activity.ChapterSlidePagerActivity;
+import com.gita.holybooks.bhagwatgita.dao.DataBaseHelper;
 import com.gita.holybooks.bhagwatgita.dto.Chapter;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
+import com.gita.holybooks.bhagwatgita.util.SharedPreferenceUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -31,6 +35,8 @@ public class ChapterSliderFragment extends Fragment {
     private Button bookMarkButton;
 
     private OnFragmentInteractionListener mListener;
+
+    DataBaseHelper dataBaseHelper;
 
     public ChapterSliderFragment() {
     }
@@ -50,6 +56,7 @@ public class ChapterSliderFragment extends Fragment {
         shlokaId = getArguments().getString("shlokaId", "1_1");
         title = getArguments().getString("title", "This is default title");
         position = getArguments().getString("position", "0");
+        dataBaseHelper = new DataBaseHelper(this.getActivity());
     }
 
     @Override
@@ -86,22 +93,13 @@ public class ChapterSliderFragment extends Fragment {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String currentShloka = DataUtil.shlokaId;
-                List<String> bookMarkedShlokas = new ArrayList<>();
-                Gson gson = new Gson();
-                SharedPreferences prefs = getActivity().getSharedPreferences("USER_PROFILE", Context.MODE_PRIVATE);
-                String restoredText = prefs.getString("bookMarkedShloka", null);
-                if (restoredText != null) {
-                    bookMarkedShlokas = gson.fromJson(restoredText, ArrayList.class);
-                    if (bookMarkedShlokas != null && !bookMarkedShlokas.contains(currentShloka))
-                        bookMarkedShlokas.add(currentShloka);
-                }
-                String json = gson.toJson(bookMarkedShlokas);
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("USER_PROFILE", Context.MODE_PRIVATE).edit();
-                editor.putString("bookMarkedShloka", json);
-                editor.commit();
-                Toast.makeText(getActivity(), "Bookmarks:" + json, Toast.LENGTH_SHORT).show();
+                String[] arr = currentShloka.split("_");
+                currentShloka = arr[0]+"_"+(Integer.valueOf(arr[1])-1);
+                //SharedPreferenceUtil.bookmarkShloka(getActivity(), currentShloka);
+                boolean isBookmarkSaved = dataBaseHelper.insertBookmark(currentShloka);
+                if(isBookmarkSaved)
+                    Toast.makeText(getContext(), "Shloka saved db", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -130,6 +128,35 @@ public class ChapterSliderFragment extends Fragment {
                 sendIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
+
+            }
+        });
+
+
+        Button copyBtn = view.findViewById(R.id.bt_copy);
+        copyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String currentShloka = DataUtil.shlokaId;
+                String[] arr = currentShloka.split("_");
+
+                String lastShloka = arr[0]+"_"+(Integer.valueOf(arr[1])-1);
+                StringBuffer sb = new StringBuffer();
+                String chapterName = DataUtil.chapters.get(Integer.valueOf(arr[0])).getTitle();
+                sb.append("Chapter "+arr[0]+" Shloka -- " + (Integer.valueOf(arr[1])-1)+" "+chapterName);
+                sb.append("\n\n");
+                sb.append(DataUtil.shlokaTextMap.get(lastShloka));
+                sb.append("\n");
+                sb.append(DataUtil.englishTransTextMap.get(lastShloka));
+                sb.append("\n\n");
+                sb.append("Shared via --- Srimad Bhagawad Gita");
+
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("simple text", sb.toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getContext(), "Text View Copied to Clipboard",
+                        Toast.LENGTH_SHORT).show();
 
             }
         });
