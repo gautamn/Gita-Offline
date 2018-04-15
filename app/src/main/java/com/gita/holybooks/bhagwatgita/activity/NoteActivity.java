@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.gita.holybooks.bhagwatgita.R;
-import com.gita.holybooks.bhagwatgita.dto.Bookmark;
+import com.gita.holybooks.bhagwatgita.adapter.NoteAdapter;
 import com.gita.holybooks.bhagwatgita.dto.Note;
 import com.gita.holybooks.bhagwatgita.service.DatabaseService;
 

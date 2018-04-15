@@ -16,7 +16,9 @@
         android:scrollbars="vertical"
         android:text="Chapter 1 Shloka 1"
         android:padding="5dp"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:background="@null"
+        android:textCursorDrawable="@drawable/custom_cursor_drawable"/>
 
     <View
         android:layout_width="match_parent"

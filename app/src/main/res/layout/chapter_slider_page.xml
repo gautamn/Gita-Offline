@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/shlokaNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textStyle="bold" />-->
 
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,7 +37,6 @@
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/shlokaNumber"
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:visibility="visible"

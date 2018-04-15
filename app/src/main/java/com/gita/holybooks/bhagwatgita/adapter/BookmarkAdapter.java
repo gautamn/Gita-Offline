@@ -1,4 +1,4 @@
-package com.gita.holybooks.bhagwatgita.activity;
+package com.gita.holybooks.bhagwatgita.adapter;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
 import com.gita.holybooks.bhagwatgita.dto.Bookmark;
-import com.gita.holybooks.bhagwatgita.dto.Note;
 import com.gita.holybooks.bhagwatgita.service.DatabaseService;
 import com.gita.holybooks.bhagwatgita.util.DataUtil;
 
@@ -24,34 +23,34 @@ import java.util.List;
  * Created by Nitin Gautam on 4/13/2018.
  */
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolder> {
+public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder> {
 
-    List<Note> notes;
+    List<Bookmark> bookmarks;
     Context context;
     DatabaseService databaseService;
 
-    public class NotesViewHolder extends RecyclerView.ViewHolder {
+    public class BookmarkViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView title, noteText;
-        public Note mNote;
+        public TextView title, shlokaText;
+        public Bookmark mBookmark;
 
 
-        public NotesViewHolder(View view) {
+        public BookmarkViewHolder(View view) {
             super(view);
 
             title = (TextView) view.findViewById(R.id.title);
-            noteText = (TextView) view.findViewById(R.id.note);
+            shlokaText = (TextView) view.findViewById(R.id.shlokaText);
 
             ImageView delBtn = (ImageView) view.findViewById(R.id.bt_delete);
             delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String currentShloka = mNote.getShlokaId();
+                    String currentShloka = mBookmark.getShlokaId();
                     String[] arr = currentShloka.split("_");
 
                     Integer rowsDeleted = databaseService.deleteBookmark(currentShloka);
                     if (rowsDeleted > 0)
-                        Toast.makeText(context, "note " + mNote.getShlokaId() + " deleted  from db", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "bookmark " + mBookmark.getShlokaId() + " deleted  from db", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -60,7 +59,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
                 @Override
                 public void onClick(View view) {
 
-                    String currentShloka = mNote.getShlokaId();
+                    String currentShloka = mBookmark.getShlokaId();
                     String[] arr = currentShloka.split("_");
 
                     String lastShloka = arr[0] + "_" + (Integer.valueOf(arr[1]));
@@ -88,7 +87,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
                 @Override
                 public void onClick(View view) {
 
-                    String currentShloka = mNote.getShlokaId();
+                    String currentShloka = mBookmark.getShlokaId();
                     String[] arr = currentShloka.split("_");
 
                     String lastShloka = arr[0] + "_" + (Integer.valueOf(arr[1]));
@@ -111,39 +110,39 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
             });
         }
 
-        public void bindData(Note note) {
-            mNote = note;
-            title.setText(note.getTitle());
-            noteText.setText(note.getNote());
+        public void bindData(Bookmark bookmark) {
+            mBookmark = bookmark;
+            title.setText(bookmark.getTitle());
+            shlokaText.setText(bookmark.getShlokaText());
         }
     }
 
-    public NoteAdapter(List<Note> notes, Context context, DatabaseService databaseService) {
-        this.notes = notes;
+    public BookmarkAdapter(List<Bookmark> bookmarks, Context context, DatabaseService databaseService) {
+        this.bookmarks = bookmarks;
         this.context = context;
         this.databaseService = databaseService;
     }
 
     @Override
-    public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookmarkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_list_row, parent, false);
+                .inflate(R.layout.bookmark_list_row, parent, false);
 
-        return new NotesViewHolder(itemView);
+        return new BookmarkViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(NotesViewHolder holder, int position) {
+    public void onBindViewHolder(BookmarkViewHolder holder, int position) {
 
-        Note note = notes.get(position);
-        holder.bindData(note);
+        Bookmark bookmark = bookmarks.get(position);
+        holder.bindData(bookmark);
 
     }
 
     @Override
     public int getItemCount() {
-        return notes.size();
+        return bookmarks.size();
     }
 
 

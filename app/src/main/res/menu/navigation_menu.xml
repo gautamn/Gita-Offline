@@ -21,6 +21,11 @@
             android:title="@string/nav_shloka_of_the_day" />
 
         <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_action_search"
+            android:title="@string/nav_search" />
+
+        <item
             android:id="@+id/nav_progress"
             android:icon="@drawable/ic_action_report"
             android:title="@string/nav_progress_report" />

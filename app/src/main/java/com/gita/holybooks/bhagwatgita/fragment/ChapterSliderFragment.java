@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +75,7 @@ public class ChapterSliderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.chapter_slider_page, container, false);
-        TextView tvShlokaNumber = (TextView) view.findViewById(R.id.shlokaNumber);
+        //TextView tvShlokaNumber = (TextView) view.findViewById(R.id.shlokaNumber);
         TextView tvShlokaText = (TextView) view.findViewById(R.id.shlokaText);
         TextView tvTransText = (TextView) view.findViewById(R.id.shlokaTrans);
 
@@ -92,7 +93,7 @@ public class ChapterSliderFragment extends Fragment {
         Log.d("ChapterSliderFragment", "shlokaText=" + shlokaText);
         shlokaText = (shlokaText == null) ? "Hello World" : shlokaText;
 
-        tvShlokaNumber.setText("Chapter " + chapterNumber + " Shloka " + currentShloka);
+        //tvShlokaNumber.setText("Chapter " + chapterNumber + " Shloka " + currentShloka);
         shlokaText = shlokaText.replace(".." + strToRemove + "..", "");
         tvShlokaText.setText(shlokaText);
         String trans = DataUtil.englishTransTextMap.get(currentShlokaId);
@@ -118,9 +119,7 @@ public class ChapterSliderFragment extends Fragment {
                         EditText editText = (EditText) v.findViewById(R.id.editNote);
                         String text = "This is note";
                         dialog.dismiss();
-
                         databaseService.insertNote(DataUtil.shlokaId, text);
-
                         Toast.makeText(getContext(), "Note saved!!!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -198,7 +197,6 @@ public class ChapterSliderFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
 
         return view;
     }

@@ -66,9 +66,17 @@ public class NoteDataBaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM " + NOTE_TABLE, null);
     }
 
-    /*public Integer deleteBookmark(String shlokaId) {
+    public Cursor getNote(String shlokaId) {
 
         sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.delete(NOTE_TABLE, "shloka_id=?", new String[]{shlokaId});
-    }*/
+        return sqLiteDatabase.rawQuery("SELECT * FROM note WHERE shloka_id="+shlokaId, new String[] {shlokaId});
+    }
+
+    public int updateNote(String shlokaId, String note){
+
+        ContentValues cv = new ContentValues();
+        cv.put(NOTE_COL_3,note);
+        cv.put(NOTE_COL_4, new Date().toString());
+        return sqLiteDatabase.update(NOTE_TABLE, cv, "shloka_id = ?", new String[]{shlokaId});
+    }
 }

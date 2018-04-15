@@ -166,6 +166,18 @@ public class ChapterSlidePagerActivity extends AppCompatActivity{
 
             //Toast.makeText(ChapterSlidePagerActivity.this, "Added shloka"+json+" to key="+key, Toast.LENGTH_SHORT).show();
 
+            /*Update toolbar with shloka Number*/
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            String chapterName = ((Chapter)DataUtil.chapters.get(Integer.valueOf(chapterNumber)-1)).getTitle();
+
+            if(getSupportActionBar()!=null){
+                String tmpShlokaId = DataUtil.shlokaId.replace("_",":");
+                getSupportActionBar().setTitle(chapterName + " " + tmpShlokaId);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+            }
+
 
             return ChapterSliderFragment.newInstance("Title", String.valueOf(position));
         }

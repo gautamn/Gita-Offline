@@ -60,6 +60,10 @@ public class DatabaseService {
 
     public boolean insertNote(String shlokaId, String note){
 
+        Cursor cursor = noteDataBaseHelper.getNote(shlokaId);
+        if(cursor.getCount()>0)
+            noteDataBaseHelper.updateNote(shlokaId, note);
+
         return noteDataBaseHelper.insertNote(shlokaId, note);
     }
 

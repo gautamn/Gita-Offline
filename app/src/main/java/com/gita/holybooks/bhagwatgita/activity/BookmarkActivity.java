@@ -7,11 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gita.holybooks.bhagwatgita.R;
+import com.gita.holybooks.bhagwatgita.adapter.BookmarkAdapter;
 import com.gita.holybooks.bhagwatgita.dto.Bookmark;
 import com.gita.holybooks.bhagwatgita.service.DatabaseService;
 
