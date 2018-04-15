@@ -58,6 +58,16 @@ public class DatabaseService {
         return dataBaseHelper.deleteBookmark(shlokaId);
     }
 
+
+    public boolean insertBookmark(String shlokaId){
+
+        Cursor cursor = dataBaseHelper.getBookmark(shlokaId);
+        if(cursor.getCount()>0)
+            return true;
+
+        return dataBaseHelper.insertBookmark(shlokaId);
+    }
+
     public boolean insertNote(String shlokaId, String note){
 
         Cursor cursor = noteDataBaseHelper.getNote(shlokaId);

@@ -135,10 +135,9 @@ public class ChapterSliderFragment extends Fragment {
                 String currentShloka = DataUtil.shlokaId;
                 String[] arr = currentShloka.split("_");
                 currentShloka = arr[0]+"_"+(Integer.valueOf(arr[1])-1);
-                //SharedPreferenceUtil.bookmarkShloka(getActivity(), currentShloka);
-                boolean isBookmarkSaved = dataBaseHelper.insertBookmark(currentShloka);
+                boolean isBookmarkSaved = databaseService.insertBookmark(currentShloka);
                 if(isBookmarkSaved)
-                    Toast.makeText(getContext(), "Shloka saved db", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Shloka bookmarked !!!", Toast.LENGTH_SHORT).show();
             }
         });
 

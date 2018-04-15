@@ -69,7 +69,7 @@ public class NoteDataBaseHelper extends SQLiteOpenHelper {
     public Cursor getNote(String shlokaId) {
 
         sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM note WHERE shloka_id="+shlokaId, new String[] {shlokaId});
+        return sqLiteDatabase.rawQuery("SELECT * FROM note WHERE shloka_id='"+shlokaId+"'", new String[] {shlokaId});
     }
 
     public int updateNote(String shlokaId, String note){

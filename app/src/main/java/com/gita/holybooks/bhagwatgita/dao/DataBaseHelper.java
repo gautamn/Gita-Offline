@@ -65,6 +65,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM " + BOOKMARKS_TABLE, null);
     }
 
+    public Cursor getBookmark(String shlokaId) {
+
+        sqLiteDatabase = this.getWritableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM " + BOOKMARKS_TABLE
+                + " WHERE shloka_id='"+shlokaId+"'", null);
+    }
+
     public Integer deleteBookmark(String shlokaId) {
 
         sqLiteDatabase = this.getWritableDatabase();
